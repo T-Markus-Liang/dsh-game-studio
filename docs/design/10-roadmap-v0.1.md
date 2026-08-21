@@ -47,8 +47,54 @@
 ### M5 — 打磨与发布（1 天）
 - system prompt section（02 §5）；`/game agents|skills`；README 使用文档；
   `dsh plugin add` 冒烟（GitHub 私仓或本地 tarball）；版本 0.1.0 打 tag。
+- **验收**：§1.1「发布检查清单」逐项通过；Release 工作流在 tag 推送后自动产出
+  GitHub Release，changelog 与 commit 一致。
+
+#### M5.1 发布检查清单（V0.1 Release 前逐项核对）
+
+> 配套基建已就绪：`.github/workflows/ci.yml`（push/PR 自动测试）与
+> `.github/workflows/release.yml`（tag 触发 → 版本校验 → 测试 → 自动 changelog →
+> GitHub Release）。发布路径 = 本清单通过后打 tag 推送。
+
+**版本与 tag（硬性校验，Release 工作流会拒绝不一致）**
+1. `package.json` 的 `version` 与即将打的 tag **完全一致**：`git tag v0.1.0` ↔
+   `"version": "0.1.0"`（工作流的 `Verify version matches tag` 步骤强校验，不一致即失败）。
+2. 变更分级符合 semver 预期：破坏性变更 → minor bump 并在 changelog 标注；纯修复/新
+   功能 → patch/minor；**V0.1 仍是 pre-release 形态时建议保留 `0.x` 并接受任意 break**。
+3. 打 tag 前 `git status` 干净（无未提交改动）；tag 打在 `main` 的最新提交上，
+   不追中间 commit。
+
+**代码与测试**
+4. `node --check lib/*.js` 全绿；`node --test test/*.test.js` 全绿（CI 同样强制）。
+5. `npm pack --dry-run` 检查发布包内容：包含 `lib/`、`assets/`、`cordis.patch.yml`、
+   `LICENSE`、`README.md`，**不包含** `.github/`、`test/`（files 白名单生效）。
+6. 无 TODO/FIXME 遗留（grep 确认）；README 使用文档与当前命令面一致。
+
+**安装链路（卸载 = 删行，语义不变）**
+7. `dsh plugin add "github:T-Markus-Liang/dsh-game-studio"` 冒烟通过，插件加载行出现
+   在 DSH 启动日志。
+8. 从补丁层删行 → 命令/工具/skill 目录全部消失，无报错残留（验证可卸载）。
+
+**仓库卫生**
+9. LICENSE（MIT）与 README 致谢段在 repo 根；`docs/design/` 全套设计文档随包发布
+   （设计即文档，公开可读）。
+10. GitHub topics 已配置（deepseek-harness, dsh-plugin, game-development, unity,
+    unreal-engine, godot, ai-agents, verifier…）；Release 描述用 changelog 自动生成。
+
+**发布动作（全部完成才打 tag）**
+11. 提交所有改动到 `main` 并推送。
+12. `git tag v0.1.0 && git push origin v0.1.0` → Release 工作流自动跑
+    版本校验 → 测试 → changelog → 创建 Release。
+13. 到 Releases 页人工确认：标题 `dsh-game-studio v0.1.0`、changelog 完整、
+    tag 已 verify；必要时补 pre-release 标记。
+14. （可选）在 README 加「安装」徽章区（GitHub release 徽章 / 版本号），方便用户
+    看到最新版。
+
+> 后续版本（v0.2.0…）复用同一清单：改 `package.json` version → 按 semver 分级
+> changelog 期望 → 打对应 tag → 推送。清单第 1 条是硬门槛，其余按实际迭代收敛。
 
 规模预估：src/ 约 2500–4000 行 JS + 测试；assets/ 为生成物。
+发布路径：M5 验收后按 §1.1 清单打 tag → Release 工作流自动出包（见 M5.1）。
 
 ## 2. 端到端验收演练（V0.1 的 Definition of Done）
 
