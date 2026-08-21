@@ -1,0 +1,16 @@
+# dsh-game-studio bundle patch: 安装插件时把本行并入目标 profile 的补丁层。
+# 卸载 = 从补丁层删掉这一行（Cordis effect 自动解除全部注册）。
+- insert:
+    - id: game-studio
+      name: dsh-game-studio
+      config:
+        reviewMode: lean
+        verify:
+          maxRepairRounds: 2
+        engines: {}
+        models:
+          orchestrator: null
+          lead: null
+          specialist: null
+          verifier: null
+          utility: null

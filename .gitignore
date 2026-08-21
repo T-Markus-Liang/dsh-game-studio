@@ -1,0 +1,12 @@
+# Node
+node_modules/
+
+# 运行时状态（游戏项目内生成，不属插件仓库）
+.dsh/game-studio/
+logs/
+
+# 系统
+.DS_Store
+
+# 测试临时
+coverage/

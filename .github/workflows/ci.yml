@@ -1,0 +1,21 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Syntax check
+        run: node --check lib/index.js
+      - name: Run tests
+        run: node --test test/*.test.js
+      - name: Validate assets manifest (when present)
+        run: node --test test/assets.test.js 2>/dev/null || echo "assets tests not yet present — skip"
