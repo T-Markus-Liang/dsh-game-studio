@@ -25,7 +25,7 @@ jobs:
           fetch-depth: 1
 
       - name: Install DSH peer dependencies
-        run: cd .dsh-source && pnpm install --frozen-lockfile
+        run: cd .dsh-source && pnpm install --no-frozen-lockfile
 
       - name: Link DSH packages for plugin tests
         run: |
