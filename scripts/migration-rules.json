@@ -1,0 +1,36 @@
+{
+  "agents": {
+    "frontmatterKeep": ["name", "description"],
+    "frontmatterRemove": ["tools", "allowed-tools", "model", "maxTurns", "memory"],
+    "frontmatterMap": {},
+    "personaReplacements": [
+      {"pattern": "AskUserQuestion", "replacement": "通过宿主 ask 机制向用户提问"},
+      {"pattern": "\\.claude/", "replacement": "assets/"},
+      {"pattern": "production/session-state", "replacement": ".dsh/game-studio/state/"},
+      {"pattern": "Claude Code", "replacement": "DSH"},
+      {"pattern": "CLAUDE.md", "replacement": "AGENTS.md"}
+    ]
+  },
+  "skills": {
+    "frontmatterKeep": ["name", "description", "argument-hint"],
+    "frontmatterRemove": ["allowed-tools", "model", "agent", "user-invocable"],
+    "frontmatterAdd": {"user-invocable": false},
+    "bodyReplacements": [
+      {"pattern": "AskUserQuestion", "replacement": "通过宿主 ask 机制向用户提问"},
+      {"pattern": "\\.claude/", "replacement": "assets/"},
+      {"pattern": "production/session-state", "replacement": ".dsh/game-studio/state/"},
+      {"pattern": "Slash command", "replacement": "命令"},
+      {"pattern": "/start", "replacement": "/game start"},
+      {"pattern": "/help", "replacement": null},
+      {"pattern": "Claude Code", "replacement": "DSH"},
+      {"pattern": "CLAUDE.md", "replacement": "AGENTS.md"},
+      {"pattern": "`allowed-tools`", "replacement": null}
+    ]
+  },
+  "rules": {
+    "maxLines": 40
+  },
+  "templates": {
+    "maxLines": 100
+  }
+}

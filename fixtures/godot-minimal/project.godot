@@ -1,0 +1,10 @@
+; Engine configuration file.
+config_version=5
+
+[application]
+config/name="GS Fixture"
+config/features=PackedStringArray("4.3")
+run/main_scene=""
+
+[debug]
+gdscript/warnings/untyped_declaration=0
