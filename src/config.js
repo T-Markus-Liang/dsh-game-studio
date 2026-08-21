@@ -2,8 +2,16 @@
 
 export const SETTINGS_NAMESPACE = 'dsh-game-studio'
 
-export async function registerSettings(ctx, baseConfig, onUpdate, onDetach = () => {}) {
-  const { default: z } = await import('@deepseek-ai/schemastery')
+/**
+ * @param {Object} ctx
+ * @param {Object} baseConfig
+ * @param {(value: Object) => void} onUpdate
+ * @param {() => void} [onDetach]
+ * @param {() => Object} [getZ] - Optional factory returning a schemastery-compatible `z`.
+ *                                Defaults to importing from @deepseek-ai/schemastery.
+ */
+export async function registerSettings(ctx, baseConfig, onUpdate, onDetach = () => {}, getZ) {
+  const z = typeof getZ === 'function' ? getZ() : (await import('@deepseek-ai/schemastery')).default
   const modelTarget = z.object({ provider: z.string(), model: z.string() })
   const schema = z.object({
     reviewMode: z.string().default('lean'),
