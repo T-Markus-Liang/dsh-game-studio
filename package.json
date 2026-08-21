@@ -27,7 +27,8 @@
     "node": ">=22.13"
   },
   "peerDependencies": {
-    "@deepseek-ai/cordis": "*"
+    "@deepseek-ai/cordis": "*",
+    "@deepseek-ai/schemastery": "*"
   },
   "dsh": {
     "bundle": {

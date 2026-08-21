@@ -10,9 +10,31 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+
+      - name: Checkout DSH source for peer dependencies
+        uses: actions/checkout@v4
+        with:
+          repository: deepseek-ai/deepseek-harness
+          path: .dsh-source
+          fetch-depth: 1
+
+      - name: Install DSH peer dependencies
+        run: cd .dsh-source && pnpm install --frozen-lockfile
+
+      - name: Link DSH packages for plugin tests
+        run: |
+          mkdir -p node_modules/@deepseek-ai
+          for pkg in cordis schemastery dsh-agent dsh-session dsh-llm dsh-tools dsh-subagent dsh-sandbox dsh-sandbox-policy dsh-user-approval dsh-agent-presets dsh-settings dsh-verifier; do
+            src="$PWD/.dsh-source/node_modules/@deepseek-ai/$pkg"
+            [ -d "$src" ] && ln -sf "$src" "node_modules/@deepseek-ai/$pkg" || true
+          done
+
       - name: Syntax check
         run: node --check lib/index.js
       - name: Run tests
