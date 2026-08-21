@@ -4,6 +4,7 @@
  */
 
 import { listAgents } from '../registry/agents.js'
+import { workflowPlan } from './workflows.js'
 
 /** 合法 category 枚举（game_studio_route 的参数 schema 用） */
 export const CATEGORIES = ['feature', 'bug', 'design', 'test', 'perf', 'release', 'other']
@@ -114,12 +115,23 @@ export function routeTask(input) {
     agents: input.agents,
   })
 
+  const plan = workflowPlan(workflow, input.reviewMode || 'lean')
   return {
     category,
     workflow,
     engine: input.engine || 'unknown',
     reviewMode: input.reviewMode || 'lean',
     team,
+    phases: [...plan.phases],
+    skills: [...plan.skills],
+    gates: [...plan.gates],
+    focusContract: {
+      goal: '(provided by dispatch)',
+      scope: [],
+      input: [],
+      output: 'minimal change',
+      done: ['tests pass', 'no regression'],
+    },
   }
 }
 

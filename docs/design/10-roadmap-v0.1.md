@@ -18,7 +18,7 @@
 
 ### M0 — 仓库与打包骨架（½ 天）
 - 按 01 §3 目录建骨架；package.json（00 §3.1）、cordis.patch.yml（00 §3.2）、
-  `src/index.js` 空插件（name/inject/apply + Config schema 占位）。
+  `lib/index.js` 空插件（name/inject/apply + Config schema 占位）。
 - **验收**：本地 link 安装（00 §3.3 路径 2）后，DSH web 启动日志出现插件加载行；
   从补丁层删行即卸载无残留。
 

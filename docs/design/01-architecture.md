@@ -63,8 +63,8 @@ Orchestrator 在派发时把选中的 skill 内容拼进 subagent prompt；规�
 dsh-game-studio/
 ├── package.json              # dsh.bundle 清单（00 §3.1）
 ├── cordis.patch.yml          # 安装补丁（00 §3.2）
+├── lib/index.js              # 插件入口：apply(ctx, config)
 ├── src/
-│   ├── index.js              # 插件入口：apply(ctx, config)
 │   ├── config.js             # schemastery Config schema
 │   ├── commands/             # /game 子命令分发（02）
 │   ├── orchestrator/         # 意图→工作流→agent 选配（本文 §5）
@@ -75,7 +75,9 @@ dsh-game-studio/
 │   ├── state/                # 持久化状态读写（06）
 │   ├── verify/               # Verifier 派发 + Gate 引擎（07）
 │   ├── hooks/                # 事件监听器（08）
-│   └── tools/                # ctx.tools 注册的模型工具（02 §4）
+│   ├── runtime.js            # 共享运行时辅助（resolveAgentCwd, toolFilter 预设）
+│   ├── git.js                # 确定性 Git 操作（Commit Gate 用）
+│   └── tool-args.js          # 工具参数运行时校验
 ├── assets/                   # ← 资源池，09 号文档迁移产物（纯数据，无代码）
 │   ├── agents/               # 49 个（清洗后）
 │   ├── skills/               # 73 个（清洗后）

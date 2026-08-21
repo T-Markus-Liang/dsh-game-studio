@@ -27,6 +27,8 @@ test('orchestrator: routeTask 合法 category 返回 plan', async () => {
   assert.equal(plan.workflow, 'debug')
   assert.ok(Array.isArray(plan.team.specialists))
   assert.ok(plan.team.specialists.length >= 1, '应选配至少 1 个 specialist')
+  assert.ok(plan.skills.includes('bug-triage'), 'debug workflow 应给出确定性 skill plan')
+  assert.ok(plan.gates.includes('verifier-pass'), 'debug workflow 应给出确定性 gate plan')
 })
 
 test('orchestrator: 非法 category 回退 other', async () => {
@@ -82,9 +84,23 @@ test('gates: scope-clean 越界 FAIL', async () => {
   assert.equal(gateScopeClean({}, { changedFiles: ['x'] }).verdict, 'SKIP')
 })
 
+test('gates: scope-clean glob patterns match', async () => {
+  const { gateScopeClean } = await import('../src/verify/gates.js')
+  const task = { contract: { scope: ['src/gameplay/**'] } }
+  assert.equal(gateScopeClean(task, { changedFiles: ['src/gameplay/player.gd'] }).verdict, 'PASS')
+  assert.equal(gateScopeClean(task, { changedFiles: ['src/gameplay/movement/jump.gd'] }).verdict, 'PASS')
+  assert.equal(gateScopeClean(task, { changedFiles: ['src/ui/panel.gd'] }).verdict, 'FAIL')
+  assert.equal(gateScopeClean(task, { changedFiles: ['src/gameplay/player.gd', 'src/gameplay/movement/jump.gd'] }).verdict, 'PASS')
+  assert.equal(gateScopeClean(task, { changedFiles: ['src/gameplay/player.gd', 'src/ui/panel.gd'] }).verdict, 'FAIL')
+})
+
 test('gates: no-debug-junk 检测 print', async () => {
   const { gateNoDebugJunk } = await import('../src/verify/gates.js')
   assert.equal(gateNoDebugJunk({}, { diff: 'print("debug")' }).verdict, 'FAIL')
+  assert.equal(gateNoDebugJunk({}, { diff: 'println("debug")' }).verdict, 'FAIL')
+  assert.equal(gateNoDebugJunk({}, { diff: 'sprintf("format")' }).verdict, 'PASS')
+  assert.equal(gateNoDebugJunk({}, { diff: 'console.log("x")' }).verdict, 'FAIL')
+  assert.equal(gateNoDebugJunk({}, { diff: '// TODO: fix later' }).verdict, 'FAIL')
   assert.equal(gateNoDebugJunk({}, { diff: 'clean code' }).verdict, 'PASS')
 })
 

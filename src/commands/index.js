@@ -189,7 +189,7 @@ async function cmdTest({ cwd, args, signal, config }) {
   const project = readProject(cwd)
   if (project.engine === 'godot') {
     const { godotAdapter } = await import('../engines/godot.js')
-    const result = await godotAdapter.test(cwd, project)
+    const result = await godotAdapter.test(cwd, project, { script: args || undefined, signal })
     if (result.ok) return { kind: 'success', text: `✅ 测试通过：${result.digest.summary}\n日志：\`${result.logPath}\`` }
     return { kind: 'error', text: `❌ 测试失败：${result.digest.summary}\n${result.digest.errors.map(e => e.message).slice(0, 5).join('\n')}\n日志：\`${result.logPath}\`` }
   }
@@ -249,7 +249,11 @@ async function startWorkflow({ agent, cwd, args, workflow, config, signal }) {
     next: `route → dispatch specialists → implement → verify`,
     updatedAt: new Date().toISOString(),
   }
-  const { writeActiveTask, logsDir } = await import('../state/index.js')
+  const { writeActiveTask } = await import('../state/index.js')
+  const active = readActiveTask(cwd)
+  if (active && active.phase !== 'ARCHIVED') {
+    return { kind: 'error', text: `已有未完成任务 \`${active.id}\`。请先用 /game status 续做，或完成/归档该任务后再创建新任务。` }
+  }
   writeActiveTask(cwd, task)
 
   const taskCard = `[game-studio task]

@@ -44,7 +44,7 @@ export const godotAdapter = {
     const bin = findGodotBinary()
     if (!bin) return { ok: false, exitCode: null, durationMs: 0, logPath: '', digest: { errors: [{ message: '未找到 Godot 可执行文件。请安装 Godot 4 并加入 PATH，或设置 GODOT_BIN 环境变量。' }], warnings: [], summary: 'godot binary not found' }, artifacts: [] }
     const cmd = `${bin} --headless --path "${det.projectRoot}" --build-solutions --quit`
-    return runEngineCommand(cmd, cwd, { timeoutMs: opts.timeoutMs ?? 300_000 })
+    return runEngineCommand(cmd, cwd, { timeoutMs: opts.timeoutMs ?? 300_000, signal: opts.signal })
   },
 
   async test(cwd, det, opts = {}) {
@@ -52,14 +52,14 @@ export const godotAdapter = {
     if (!bin) return { ok: false, exitCode: null, durationMs: 0, logPath: '', digest: { errors: [{ message: '未找到 Godot 可执行文件。' }], warnings: [], summary: 'godot binary not found' }, artifacts: [] }
     const script = opts.script || 'res://test/run_tests.gd'
     const cmd = `${bin} --headless --path "${det.projectRoot}" --script ${script} --quit`
-    return runEngineCommand(cmd, cwd, { timeoutMs: opts.timeoutMs ?? 300_000 })
+    return runEngineCommand(cmd, cwd, { timeoutMs: opts.timeoutMs ?? 300_000, signal: opts.signal })
   },
 
   async run(cwd, det, opts = {}) {
     const bin = findGodotBinary()
     if (!bin) return { ok: false, exitCode: null, durationMs: 0, logPath: '', digest: { errors: [{ message: '未找到 Godot 可执行文件。' }], warnings: [], summary: 'godot binary not found' }, artifacts: [] }
     const cmd = `${bin} --headless --path "${det.projectRoot}" --quit-after ${opts.frames ?? 60}`
-    return runEngineCommand(cmd, cwd, { timeoutMs: opts.timeoutMs ?? 300_000 })
+    return runEngineCommand(cmd, cwd, { timeoutMs: opts.timeoutMs ?? 300_000, signal: opts.signal })
   },
 
   parseLog(raw) {

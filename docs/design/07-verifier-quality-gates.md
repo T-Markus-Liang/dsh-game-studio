@@ -43,7 +43,7 @@ Gate = 纯函数 `(taskState, evidence) => { verdict: PASS|FAIL|SKIP, reasons[] 
 
 ### 3.1 派发方式（默认路径，零额外依赖）
 
-- `provider: 'spawn-in-process'` **全新子 agent，绝不 fork 父历史**——防 coder 思路污染。
+- `provider: 'spawn'` **全新子 agent，绝不 fork 父历史**——防 coder 思路污染。
 - `persona`：`assets/agents/qa-tester.md` 底稿 + verifier 追加段（09 迁移时生成
   `assets/agents/_verifier-overlay.md`）。
 - `toolFilter: reviewer`（03 §5）：只读 + 跑测试，**无 write/edit**。

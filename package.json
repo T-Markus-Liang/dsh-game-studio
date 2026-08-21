@@ -17,8 +17,7 @@
     "LICENSE",
     "README.md",
     "src/",
-    "scripts/",
-    "fixtures/"
+    "scripts/"
   ],
   "scripts": {
     "check": "node --check lib/index.js && node --test test/*.test.js",

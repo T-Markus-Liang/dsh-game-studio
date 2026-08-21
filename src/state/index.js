@@ -3,7 +3,7 @@
  * 所有读写经白名单操作，原子写（tmp+rename），JSONL 只追加。
  */
 
-import { readFileSync, writeFileSync, mkdirSync, existsSync, appendFileSync, renameSync } from 'node:fs'
+import { readFileSync, writeFileSync, mkdirSync, existsSync, appendFileSync, renameSync, rmSync } from 'node:fs'
 import { join, dirname } from 'node:path'
 
 /** 状态根目录（游戏项目工作区内） */
@@ -122,7 +122,14 @@ export function clearActiveTask(cwd) {
   const dir = join(stateRoot(cwd), 'state')
   ensureDir(dir)
   const file = join(dir, 'active-task.json')
-  try { writeFileSync(file, '', 'utf-8') } catch { /* ignore */ }
+  try { rmSync(file, { force: true }) } catch { /* ignore */ }
+}
+
+/** Persist a terminal task record and remove it from the active slot. */
+export function archiveActiveTask(cwd, task, data = {}) {
+  if (!task?.id) throw new TypeError('archiveActiveTask requires a task id')
+  logDecision(cwd, 'archive', { taskId: task.id, task, ...data })
+  clearActiveTask(cwd)
 }
 
 // ── decisions.jsonl (追加型) ───────────────────────────────

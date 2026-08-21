@@ -84,7 +84,7 @@ utility 角色:   （无独立 agent；Tier B 是模型层级不是角色）
 ```js
 await ctx.subagents.start({           // 具体 API 形态实现时按 00 §6 来源核对
   label: agentId,
-  provider: 'spawn-in-process',       // verifier 也用 spawn（不 fork，防思路污染，07）
+  provider: 'spawn',                  // verifier 也用 spawn（不 fork，防思路污染，07）
   parent: hostAgent,
   persona: composePersona(agent),     // = persona 正文 + Focus Contract + 命中的 rules
   prompt: [taskCard],                 // 任务卡 + 选中 skill 的 <skill_content>

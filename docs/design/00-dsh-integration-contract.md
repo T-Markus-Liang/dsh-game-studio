@@ -135,7 +135,7 @@ ctx.tools.register(defineTool({
 
 来源：`docs/subsystems/subagent.md`、`packages/subagent/README.md`。
 
-- **多 provider 按名共存**：`spawn-in-process`（全新子 agent）、`fork-in-process`（继承父完成史）、
+- **多 provider 按名共存**：`spawn`（全新子 agent；in-process 实现）、`fork`（继承父完成史）、
   `acp` / `codex` / `claude-code` / `dsh-sdk`（外部进程）。V0.1 只依赖 in-process 两种。
 - **一次性启动请求 `SubagentStartRequest`** 支持（逐项对应 capability 标志，不支持则
   `SubagentError('UNSUPPORTED_CAPABILITY')` 响亮失败）：

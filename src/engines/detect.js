@@ -5,7 +5,7 @@
 
 import { readFileSync, existsSync, readdirSync, mkdirSync, writeFileSync } from 'node:fs'
 import { join, dirname } from 'node:path'
-import { execSync } from 'node:child_process'
+import { spawn } from 'node:child_process'
 
 /**
  * @typedef {Object} Detection
@@ -207,6 +207,7 @@ export function parseGodotLog(raw) {
  * @param {string} cwd
  * @param {Object} [opts]
  * @param {number} [opts.timeoutMs]
+ * @param {AbortSignal} [opts.signal]
  * @returns {Promise<StepResult>}
  */
 export async function runEngineCommand(cmd, cwd, opts = {}) {
@@ -215,29 +216,41 @@ export async function runEngineCommand(cmd, cwd, opts = {}) {
   mkdirSync(logDir, { recursive: true })
   const logPath = join(logDir, `${Date.now()}-${Math.random().toString(36).slice(2, 8)}.log`)
 
-  let exitCode = null
-  let stdout = ''
-  let stderr = ''
+  const result = await new Promise(resolve => {
+    let stdout = ''
+    let stderr = ''
+    let settled = false
+    if (opts.signal?.aborted) {
+      resolve({ exitCode: 130, stdout, stderr: 'Cancelled by caller before start.' })
+      return
+    }
+    const child = spawn(cmd, { cwd, shell: true, detached: true, stdio: ['ignore', 'pipe', 'pipe'] })
+    const stop = () => {
+      try { process.kill(-child.pid, 'SIGTERM') } catch { child.kill('SIGTERM') }
+    }
+    const finish = (exitCode, extra = '') => {
+      if (settled) return
+      settled = true
+      clearTimeout(timeout)
+      opts.signal?.removeEventListener('abort', abort)
+      resolve({ exitCode, stdout, stderr: stderr + extra })
+    }
+    const abort = () => {
+      stop()
+      finish(130, '\nCancelled by caller.')
+    }
+    const timeout = setTimeout(() => {
+      stop()
+      finish(124, `\nTimed out after ${opts.timeoutMs ?? 300_000}ms.`)
+    }, opts.timeoutMs ?? 300_000)
+    opts.signal?.addEventListener('abort', abort, { once: true })
+    child.stdout.on('data', chunk => { stdout += String(chunk) })
+    child.stderr.on('data', chunk => { stderr += String(chunk) })
+    child.on('error', err => finish(1, `\n${err.message}`))
+    child.on('close', code => finish(code ?? 1))
+  })
 
-  try {
-    const result = execSync(cmd, {
-      cwd,
-      timeout: opts.timeoutMs ?? 300_000,
-      encoding: 'utf-8',
-      maxBuffer: 10 * 1024 * 1024,
-      stdio: ['ignore', 'pipe', 'pipe'],
-    })
-    stdout = result.stdout || ''
-    stderr = result.stderr || ''
-    exitCode = 0
-  } catch (err) {
-    exitCode = err.status ?? 1
-    stdout = err.stdout || ''
-    stderr = err.stderr || ''
-  }
-
-  const fullLog = `${cmd}\n\nSTDOUT:\n${stdout}\n\nSTDERR:\n${stderr}`
+  const fullLog = `${cmd}\n\nSTDOUT:\n${result.stdout}\n\nSTDERR:\n${result.stderr}`
   writeFileSync(logPath, fullLog, 'utf-8')
-
-  return { ok: exitCode === 0, exitCode, durationMs: Date.now() - start, logPath, digest: parseGodotLog(fullLog), artifacts: [] }
+  return { ok: result.exitCode === 0, exitCode: result.exitCode, durationMs: Date.now() - start, logPath, digest: parseGodotLog(fullLog), artifacts: [] }
 }

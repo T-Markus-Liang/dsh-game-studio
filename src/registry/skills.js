@@ -85,7 +85,7 @@ export function registerSkillProvider(skillCtx) {
             name: id,
             description: fm.description || `DSH Game Studio skill: ${id}`,
             whenToUse: fm.whenToUse || '',
-            invocation: { modelInvocable: true, userInvocable: false },
+            invocation: { modelInvocable: !id.startsWith('team-'), userInvocable: false },
             source: 'plugin',
             provider,
             rank: 200,

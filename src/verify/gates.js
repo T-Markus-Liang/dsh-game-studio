@@ -3,10 +3,14 @@
  * Gate = 纯函数 (taskState, evidence) => { verdict, reasons[] }。
  */
 
-import { execSync } from 'node:child_process'
+import { execFile } from 'node:child_process'
+import { promisify } from 'node:util'
 import { readFileSync, existsSync } from 'node:fs'
 import { join } from 'node:path'
 import { verificationDir, readActiveTask } from '../state/index.js'
+import { rulesForFiles } from '../registry/agents.js'
+
+const execFileAsync = promisify(execFile)
 
 /** @typedef {'PASS'|'FAIL'|'SKIP'} Verdict */
 
@@ -61,9 +65,18 @@ export function gateScopeClean(taskState, evidence) {
   const scope = taskState?.contract?.scope || []
   const changed = evidence.changedFiles || []
   if (scope.length === 0) return { verdict: 'SKIP', reasons: ['未定义 scope'] }
-  const outOfScope = changed.filter(f => !scope.some(s => f.startsWith(s.replace(/\*\*$/, '').replace(/\*$/, ''))))
+  const outOfScope = changed.filter(file => !scope.some(pattern => matchPathGlob(file, pattern)))
   if (outOfScope.length > 0) return { verdict: 'FAIL', reasons: [`越界文件: ${outOfScope.join(', ')}`] }
   return { verdict: 'PASS', reasons: [`${changed.length} 个文件均在 scope 内`] }
+}
+
+function matchPathGlob(file, pattern) {
+  const escaped = pattern
+    .replace(/[.+^${}()|[\]\\]/g, '\\$&')
+    .replace(/\*\*/g, '\u0000')
+    .replace(/\*/g, '[^/]*')
+    .replace(/\u0000/g, '.*')
+  return new RegExp(`^${escaped}$`).test(file) || (pattern.endsWith('/') && file.startsWith(pattern))
 }
 
 /**
@@ -72,10 +85,22 @@ export function gateScopeClean(taskState, evidence) {
 export function gateNoDebugJunk(taskState, evidence) {
   const diff = evidence.diff || ''
   const junk = []
-  if (/print_debug|print\s*\(/.test(diff)) junk.push('print_debug')
+  if (/print_debug|\b(?:print|println)\s*\(/.test(diff)) junk.push('debug_print')
   if (/console\.log/.test(diff)) junk.push('console.log')
+  if (/TODO\b/.test(diff)) junk.push('TODO')
   if (junk.length > 0) return { verdict: 'FAIL', reasons: [`含调试残留: ${junk.join(', ')}`] }
   return { verdict: 'PASS', reasons: ['无调试残留'] }
+}
+
+/** asset-valid: only asset files require an applicable asset rule. */
+const ASSET_EXTENSIONS = new Set(['.png', '.jpg', '.jpeg', '.webp', '.gif', '.wav', '.mp3', '.ogg', '.flac', '.ttf', '.otf', '.glb', '.gltf', '.fbx', '.obj'])
+export function gateAssetValid(taskState, evidence) {
+  const assets = (evidence.changedFiles || []).filter(file => ASSET_EXTENSIONS.has(file.slice(file.lastIndexOf('.')).toLowerCase()))
+  if (!assets.length) return { verdict: 'SKIP', reasons: ['无资产变更'] }
+  const unchecked = assets.filter(file => rulesForFiles([file]).length === 0)
+  return unchecked.length
+    ? { verdict: 'FAIL', reasons: [`资产未命中验证规则: ${unchecked.join(', ')}`] }
+    : { verdict: 'PASS', reasons: ['全部资产命中验证规则'] }
 }
 
 /**
@@ -97,6 +122,7 @@ export const GATES = {
   'no-regression': gateNoRegression,
   'scope-clean': gateScopeClean,
   'no-debug-junk': gateNoDebugJunk,
+  'asset-valid': gateAssetValid,
   'verifier-pass': gateVerifierPass,
 }
 
@@ -122,14 +148,17 @@ export function runGates(gateIds, evidence, cwd) {
 /**
  * 收集 git diff 证据（scope-clean / no-debug-junk 用）。
  * @param {string} cwd
- * @returns {Object}
+ * @param {AbortSignal} [signal]
+ * @returns {Promise<Object>}
  */
-export function collectGitEvidence(cwd) {
+export async function collectGitEvidence(cwd, signal) {
   try {
-    const changedFiles = execSync('git diff --name-only HEAD', { cwd, encoding: 'utf-8' })
-      .split('\n').map(s => s.trim()).filter(Boolean)
-    const diff = execSync('git diff HEAD', { cwd, encoding: 'utf-8', maxBuffer: 10 * 1024 * 1024 })
-    return { changedFiles, diff }
+    const options = { cwd, encoding: 'utf-8', maxBuffer: 10 * 1024 * 1024, signal }
+    const [{ stdout: files }, { stdout: diff }] = await Promise.all([
+      execFileAsync('git', ['diff', '--name-only', 'HEAD'], options),
+      execFileAsync('git', ['diff', 'HEAD'], options),
+    ])
+    return { changedFiles: files.split('\n').map(s => s.trim()).filter(Boolean), diff }
   } catch {
     return { changedFiles: [], diff: '' }
   }

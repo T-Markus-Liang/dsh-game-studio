@@ -33,6 +33,13 @@ jobs:
       - name: Syntax + tests
         run: node --check lib/index.js && node --test test/*.test.js
 
+      - name: Validate release package
+        run: |
+          npm pack --dry-run --json > pack-output.json
+          node -e "const fs=require('fs'); const parsed=JSON.parse(fs.readFileSync('pack-output.json','utf8')); const pack=Array.isArray(parsed) ? parsed[0] : Object.values(parsed)[0]; const files=pack.files.map(f=>f.path); const banned=files.filter(p=>/^(test|fixtures|\.github)\//.test(p)); if(banned.length) { console.error('Unexpected packed files:', banned); process.exit(1) }"
+          test -f cordis.patch.yml
+          grep -Eq '^\s*- insert:|^\s*name: dsh-game-studio$' cordis.patch.yml
+
       - name: Build changelog
         id: changelog
         run: |

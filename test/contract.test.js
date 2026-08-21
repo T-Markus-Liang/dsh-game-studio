@@ -41,12 +41,13 @@ function assertRegisterable(tool) {
 
 /** 真实 apply 的 ctx 模拟——捕获注册的 6 个工具 */
 function makeCtx() {
-  const registered = { commands: [], tools: [], sections: [], events: new Set(), skills: 0 }
+  const registered = { commands: [], tools: [], sections: [], events: new Set(), skills: 0, handlers: [], settings: [] }
   const sub = {
     commands: { register: (c) => { registered.commands.push(c.name) } },
     tools: { register: (t) => { registered.tools.push(t) } },
     skills: { registerProvider: (f) => { registered.skills++; return () => {} } },
     systemPrompt: { section: (s) => { registered.sections.push(s.name); return () => {} } },
+    settings: { register: (namespace, schema, options) => { registered.settings.push(namespace); return { get: () => ({}), watch: () => () => {} } } },
   }
   const ctx = {
     logger: { info: () => {} },
