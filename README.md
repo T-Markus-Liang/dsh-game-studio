@@ -7,6 +7,7 @@
 **已知兼容性问题**（记录于 [`docs/compatibility/`](docs/compatibility/)）：
 
 - [0001](docs/compatibility/0001-raw-register-output-schema-type-json.md)（**Fixed**，原高危）：raw `tools.register` 注册的 6 个工具曾使用输出 schema `{ type: 'json' }`（defineTool ValueSchemaSpec 方言），会被 DSH raw schema 校验（`assertSupportedJsonSchema`，白名单 `object/array/string/number/integer/boolean/null` 或省略）以 `JsonSchemaError` 拒绝。已按方案 A 改为 annotation-only schema `{ description: 'lossless JSON result' }`，契约测试同步对齐真实校验语义。修复记录与验收结果见记录正文。
+- [0002](docs/compatibility/0002-duplicate-bundle-insert.md)（**Fixed**，原中风险）：同时使用 `dsh.profile.bundles` 与手动 `cordis.patch.yml` insert 会导致插件双加载、手动配置被静默忽略、工具注册重复。安装前必须确认二选一，不可混用。已按方案 B 增强版修复：apply() 入口进程级单实例守卫（Symbol 注册表 + token 化 dispose 释放），双加载时第二实例整体 no-op 并在日志告警。
 
 **AI-native Game Development Runtime for DeepSeek Harness**
 
@@ -75,6 +76,11 @@ DeepSeek Harness
 - **持久化任务状态**：`.dsh/game-studio/` 落盘，跨 compaction / 跨 session 恢复，`/game status` 随时可查。
 
 ## 安装
+
+> ⚠️ **双加载风险**：**不要同时**把本插件加入 `dsh.profile.bundles` **和**手动 `cordis.patch.yml` insert。
+> 两路都会触发插件启动，导致 loader entry duplicate 或工具注册失败（`tool "game_studio_*" is already registered`），
+> 且手动 patch 的 config 会被 bundle 实例静默忽略。详见 `docs/compatibility/0002-duplicate-bundle-insert.md`。
+> 即使误配双加载，插件会自动拒绝第二实例并在日志给出提示（v0.1.3+）。
 
 ### 路径一：开发期 link 安装（当前推荐）
 

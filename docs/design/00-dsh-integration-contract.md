@@ -82,6 +82,19 @@ export function apply(ctx, config = {}) {
 
 ### 3.3 三种安装路径（按优先级支持）
 
+> ⚠️ **双加载风险**：同一插件**不得同时**出现在 `dsh.profile.bundles` 列表**和**手动 `cordis.patch.yml` insert 中。
+> 两路都会触发插件启动，导致 loader entry duplicate、工具注册失败（`"xxx" is already registered`），
+> 且手动 patch 的 config 会被 bundle 实例静默忽略。详见 `docs/compatibility/0002-duplicate-bundle-insert.md`。
+> 自带 `dsh.bundle.patch` 的插件应通过 `dsh plugin add` 安装，或由用户手动 insert（二选一，不可混用）。
+>
+> **工程防线（0002 已修复，v0.1.3+）**：本插件在 apply() 入口自带进程级单实例守卫
+> （`globalThis[Symbol.for('dsh-game-studio.active')]` 注册表 + token 化 `ctx.effect` dispose 释放）。
+> 双加载发生时，第二实例整体 no-op（不注册任何 commands/tools/skills/settings/hooks/section）
+> 并在日志发出明确告警；首个实例卸载/HMR 重载后标记自动释放，不影响正常重载。
+> 守卫是兜底而非许可——安装配置仍应二选一。
+>
+> **方案 C 发布约定**：自带 `dsh.bundle.patch` 的插件不要进 `dsh.profile.bundles` 列表。
+
 1. **`dsh plugin add`（发布后）**：`pnpm dsh plugin --profile web add "github:<owner>/dsh-game-studio"`。
    CLI 的 `plugin` 子命令把剩余参数转发给 profile 目录里的 pnpm（来源：`apps/cli/src/args.ts:171`），
    然后 `dsh.bundle.patch` 里的行被并入 profile 补丁层。装完刷新页面即可，无需重启。
