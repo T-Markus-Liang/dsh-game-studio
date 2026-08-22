@@ -2,6 +2,9 @@
 
 import { getAgent, readPersona } from '../registry/agents.js'
 import { toolFilterFor } from '../runtime.js'
+// 循环依赖说明：lib/index.js 导入本模块的 dispatchVerifier；
+// agentOptionsFor 是提升的函数声明且仅在运行期调用，ESM live binding 下安全。
+import { agentOptionsFor } from '../../lib/index.js'
 
 /** Structured verdict required by the quality-gate policy. */
 export const VERIFIER_SCHEMA = {
@@ -44,7 +47,7 @@ Review only the supplied evidence. Return the required JSON verdict; report ever
  * Start, await, and dispose an independent verifier child.
  * @returns {Promise<Object>}
  */
-export async function dispatchVerifier({ ctx, parent, taskId, evidence, signal }) {
+export async function dispatchVerifier({ ctx, parent, taskId, evidence, signal, models = {} }) {
   if (!ctx?.subagents || !parent) {
     return { verdict: 'SKIP', summary: 'Verifier requires a subagent service and parent agent', issues: [] }
   }
@@ -72,6 +75,7 @@ Return only the required structured verdict.`
       persona: buildVerifierPersona(),
       prompt: [{ type: 'text', text: taskCard }],
       toolFilter: toolFilterFor('reviewer'),
+      ...(agentOptionsFor('verifier', null, models, parent?.ctx) ? { agentOptions: agentOptionsFor('verifier', null, models, parent?.ctx) } : {}),
       outputSchema: VERIFIER_SCHEMA,
       maxDepth: 1,
     })
