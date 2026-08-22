@@ -30,11 +30,6 @@
     "@deepseek-ai/cordis": "*",
     "@deepseek-ai/schemastery": "*"
   },
-  "dsh": {
-    "bundle": {
-      "patch": "./cordis.patch.yml"
-    }
-  },
   "keywords": [
     "deepseek-harness",
     "dsh",
