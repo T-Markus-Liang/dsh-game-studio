@@ -18,17 +18,32 @@ export function shq(segment) {
   return `'${String(segment).replace(/'/g, `'\\''`)}'`
 }
 
-/** 探测结果缓存（进程级，避免每次 build/test 都 execSync） */
+/** 探测结果缓存（进程级，避免每次 build/test 都 execSync）。
+ * `binaryProbed` 的短路语义只在未配置 `configuredBin` 时沿用旧行为；
+ * 传入 `configuredBin` 时优先尝试它并照常写入缓存。 */
 let cachedBinary = null
 let binaryProbed = false
 
-/** 在 PATH 中查找 godot 可执行文件 */
-function findGodotBinary() {
-  if (binaryProbed) return cachedBinary
+/**
+ * 查找 Godot 可执行文件。
+ * 候选顺序：`process.env.GODOT_BIN` → `configuredBin`（若非空字符串）→ `godot4` → `godot`。
+ * 未传 `configuredBin` 时沿用旧 PATH 探测 + 进程级缓存语义；
+ * 传入 `configuredBin`（插件配置的绝对路径）时优先尝试它，失败则回退候选，并照常缓存。
+ * @param {string} [configuredBin] - 插件配置的 Godot 二进制绝对路径（可为空串）。
+ * @returns {string|null}
+ * @export 供测试直接验证候选顺序与回退行为。
+ */
+export function findGodotBinary(configuredBin) {
+  const hasConfigured = typeof configuredBin === 'string' && configuredBin.length > 0
+  // 未配置时命中缓存直接复用，保持旧行为。
+  if (!hasConfigured && binaryProbed) return cachedBinary
+
+  const candidates = []
+  if (process.env.GODOT_BIN) candidates.push(process.env.GODOT_BIN)
+  if (hasConfigured) candidates.push(configuredBin)
+  candidates.push('godot4', 'godot')
+
   binaryProbed = true
-  const candidates = process.env.GODOT_BIN
-    ? [process.env.GODOT_BIN]
-    : ['godot4', 'godot']
   for (const c of candidates) {
     try {
       execSync(`${c} --version`, { stdio: 'ignore', timeout: 5000 })
@@ -36,6 +51,7 @@ function findGodotBinary() {
       return c
     } catch { /* try next */ }
   }
+  cachedBinary = null
   return null
 }
 
@@ -53,22 +69,26 @@ export const godotAdapter = {
   },
 
   async build(cwd, det, opts = {}) {
-    const bin = findGodotBinary()
-    if (!bin) return { ok: false, exitCode: null, durationMs: 0, logPath: '', digest: { errors: [{ message: '未找到 Godot 可执行文件。请安装 Godot 4 并加入 PATH，或设置 GODOT_BIN 环境变量。' }], warnings: [], summary: 'godot binary not found' }, artifacts: [] }
+    const bin = findGodotBinary(opts.bin)
+    if (!bin) return { ok: false, exitCode: null, durationMs: 0, logPath: '', digest: { errors: [{ message: '未找到 Godot 可执行文件。请安装 Godot 4 并加入 PATH，或设置 GODOT_BIN 环境变量，或通过引擎配置 engines.godot.bin 指定绝对路径。' }], warnings: [], summary: 'godot binary not found' }, artifacts: [] }
     const cmd = `${bin} --headless --path ${shq(det.projectRoot)} --build-solutions --quit`
     return runEngineCommand(cmd, cwd, { timeoutMs: opts.timeoutMs ?? 300_000, signal: opts.signal })
   },
 
   async test(cwd, det, opts = {}) {
-    const bin = findGodotBinary()
+    const bin = findGodotBinary(opts.bin)
     if (!bin) return { ok: false, exitCode: null, durationMs: 0, logPath: '', digest: { errors: [{ message: '未找到 Godot 可执行文件。' }], warnings: [], summary: 'godot binary not found' }, artifacts: [] }
     const script = opts.script || 'res://test/run_tests.gd'
-    const cmd = `${bin} --headless --path ${shq(det.projectRoot)} --script ${shq(script)} --quit`
+    // 场景入口分流：`.tscn` 以 positional 主场景形式运行（保留 autoload 单例加载）。
+    // `--script` 的 SceneTree 模式不加载 autoload，会导致 `Identifier not found: GameState` 这类失败。
+    const cmd = script.endsWith('.tscn')
+      ? `${bin} --headless --path ${shq(det.projectRoot)} ${shq(script)}`
+      : `${bin} --headless --path ${shq(det.projectRoot)} --script ${shq(script)} --quit`
     return runEngineCommand(cmd, cwd, { timeoutMs: opts.timeoutMs ?? 300_000, signal: opts.signal })
   },
 
   async run(cwd, det, opts = {}) {
-    const bin = findGodotBinary()
+    const bin = findGodotBinary(opts.bin)
     if (!bin) return { ok: false, exitCode: null, durationMs: 0, logPath: '', digest: { errors: [{ message: '未找到 Godot 可执行文件。' }], warnings: [], summary: 'godot binary not found' }, artifacts: [] }
     const frames = Number.isSafeInteger(opts.frames) && opts.frames > 0 ? opts.frames : 60
     const cmd = `${bin} --headless --path ${shq(det.projectRoot)} --quit-after ${frames}`
@@ -82,7 +102,8 @@ export const godotAdapter = {
   assetRules: ['gameplay-code', 'shader-code', 'ui-code'],
 }
 
-/** 查找并返回 Godot 二进制路径（供测试注入） */
+/** 查找并返回 Godot 二进制路径（供测试注入）。
+ * 不传参时等价旧行为（PATH/GODOT_BIN 探测 + 进程级缓存）。 */
 export function godotBinary() {
   return findGodotBinary()
 }

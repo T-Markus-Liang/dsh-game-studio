@@ -8,6 +8,10 @@
         verify:
           maxRepairRounds: 2
         engines: {}
+        # engines.godot.bin（可选）：指定 Godot 可执行文件绝对路径，
+        # 例如 engines: { godot: { bin: "/opt/homebrew/bin/godot" } }。
+        # 仅在 DSH 进程 PATH 不含 godot、且未设置 GODOT_BIN 时使用；
+        # 该 bin 值只写在用户 profile 配置里，这里保持空对象，不写死。
         models:
           orchestrator: null
           lead: null
