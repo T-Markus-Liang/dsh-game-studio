@@ -1,6 +1,6 @@
 {
   "name": "dsh-game-studio",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "DSH Game Studio: AI-native Game Development Runtime for DeepSeek Harness. 可安装/卸载/升级的游戏开发插件 —— /game 子命令、动态 Agent Pool、引擎适配器（Unity/UE5/Godot）、Verifier + Quality Gate。",
   "type": "module",
   "main": "lib/index.js",
