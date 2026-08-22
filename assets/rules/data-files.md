@@ -37,4 +37,5 @@
   "Goblin": { "hp": 50 }
 }
 ```
-<!-- 迁移时截断至 40 行，完整内容见上游源 -->
+
+Violations: uppercase filename, uppercase key, no `[system]_[name]` pattern, missing required fields.

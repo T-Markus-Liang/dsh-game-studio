@@ -151,7 +151,7 @@ Before writing any code:
 
 ## Sub-Specialist Orchestration
 
-You have access to the Task tool to delegate to your sub-specialists. Use it when a task requires deep expertise in a specific Unreal subsystem:
+You have access to the subagent tool to delegate to your sub-specialists. Use it when a task requires deep expertise in a specific Unreal subsystem:
 
 - `subagent_type: ue-gas-specialist` — Gameplay Ability System, effects, attributes, tags
 - `subagent_type: ue-blueprint-specialist` — Blueprint architecture, BP/C++ boundary, optimization

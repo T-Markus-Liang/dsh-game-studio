@@ -31,7 +31,7 @@ Store these findings internally to validate the user's self-assessment and tailo
 
 ## Phase 2: Ask Where the User Is
 
-This is the first thing the user sees. Use `通过宿主 ask 机制向用户提问` with these exact options so the user can click rather than type:
+This is the first thing the user sees. Use `the host's ask/question mechanism` with these exact options so the user can click rather than type:
 
 - **Prompt**: "Welcome to DSH Game Studios! Before I suggest anything, I'd like to understand where you're starting from. Where are you at with your game idea right now?"
 - **Options**:
@@ -108,8 +108,8 @@ The user needs creative exploration before anything else.
 
 #### If C: Clear concept
 
-1. Ask them to describe their concept in one sentence — genre and core mechanic. Use plain text, not 通过宿主 ask 机制向用户提问 (it's an open response).
-2. Acknowledge the concept, then use `通过宿主 ask 机制向用户提问` to offer two paths:
+1. Ask them to describe their concept in one sentence — genre and core mechanic. Use plain text, not the host's ask/question mechanism (it's an open response).
+2. Acknowledge the concept, then use `the host's ask/question mechanism` to offer two paths:
    - **Prompt**: "How would you like to proceed?"
    - **Options**:
      - `Formalize it first` — Run `/brainstorm [concept]` to structure it into a proper game concept document
@@ -187,7 +187,7 @@ Check if `production/review-mode.txt` already exists.
 
 **If it exists**: Read it and show the current mode — "Review mode is set to `[current]`." — then proceed to Phase 4. Do not ask again.
 
-**If it does not exist**: Use `通过宿主 ask 机制向用户提问`:
+**If it does not exist**: Use `the host's ask/question mechanism`:
 
 - **Prompt**: "One setup choice: how much design review would you want as you work through the workflow?"
 - **Options**:
@@ -208,7 +208,7 @@ Create the `production/` directory if it does not exist.
 
 ## Phase 4: Confirm Before Proceeding
 
-After presenting the recommended path, use `通过宿主 ask 机制向用户提问` to ask the user which step they'd like to take first. Never auto-run the next skill.
+After presenting the recommended path, use `the host's ask/question mechanism` to ask the user which step they'd like to take first. Never auto-run the next skill.
 
 - **Prompt**: "Would you like to start with [recommended first step]?"
 - **Options**:

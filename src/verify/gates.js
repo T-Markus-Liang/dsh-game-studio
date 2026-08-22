@@ -23,7 +23,9 @@ const execFileAsync = promisify(execFile)
 // ── gate 实现 ──────────────────────────────────────────────
 
 /**
- * build-pass：引擎 build StepResult.ok。
+ * build-pass：引擎 build StepResult.ok 且 digest.errors 空。
+ * 注意：Godot 对 --script 解析失败等场景仍可能 exit 0，exitCode 不可信，
+ * 必须同时检查日志 digest 中的错误（与 gateTestsPass 语义一致）。
  * @param {Object} taskState
  * @param {Object} evidence  { stepResult }
  * @returns {GateResult}
@@ -31,9 +33,12 @@ const execFileAsync = promisify(execFile)
 export function gateBuildPass(taskState, evidence) {
   const sr = evidence.stepResult
   if (!sr) return { verdict: 'SKIP', reasons: ['无构建证据'] }
-  return sr.ok
-    ? { verdict: 'PASS', reasons: [`build ok (${sr.durationMs}ms)`] }
-    : { verdict: 'FAIL', reasons: [`build failed: ${sr.digest?.summary || sr.exitCode}`] }
+  if (!sr.ok) return { verdict: 'FAIL', reasons: [`build failed: ${sr.digest?.summary || sr.exitCode}`] }
+  if (sr.digest?.errors?.length) {
+    const details = sr.digest.errors.slice(0, 5).map(e => e.message).filter(Boolean)
+    return { verdict: 'FAIL', reasons: [`构建输出含 ${sr.digest.errors.length} 个错误`, ...details] }
+  }
+  return { verdict: 'PASS', reasons: [`build ok (${sr.durationMs}ms)`] }
 }
 
 /**

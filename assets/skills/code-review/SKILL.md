@@ -166,7 +166,7 @@ This skill is read-only — no files are written.
 
 ## Phase 9: Next Steps
 
-Use `通过宿主 ask 机制向用户提问`:
+Use `the host's ask/question mechanism`:
 - Prompt: "Code review complete — verdict: [APPROVED / CHANGES REQUIRED / MAJOR REVISION]. How would you like to proceed?"
 - Options (adjust based on verdict):
   - If APPROVED:

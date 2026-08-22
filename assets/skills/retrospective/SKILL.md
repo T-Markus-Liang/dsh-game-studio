@@ -19,7 +19,7 @@ Before loading any data, glob for an existing retrospective file:
   (also check `production/sprints/sprint-[N]-retrospective.md` as an alternate location)
 - For milestone retrospectives: `production/retrospectives/retro-[milestone-name]-*.md`
 
-If a matching file is found, use `通过宿主 ask 机制向用户提问`:
+If a matching file is found, use `the host's ask/question mechanism`:
 - Prompt: "An existing retrospective was found: [filename]. How do you want to proceed?"
 - Options:
   - `[A] Update existing — load it and add/revise sections with new data`
@@ -44,7 +44,7 @@ Read the sprint or milestone plan from the appropriate location:
 > "No sprint data found for [sprint/milestone]. Run `/sprint-status` to generate
 > sprint data first, or provide the sprint details manually."
 
-Then use `通过宿主 ask 机制向用户提问` to present two options:
+Then use `the host's ask/question mechanism` to present two options:
 
 - **[A] Provide data manually** — ask the user to paste or describe the sprint
   tasks, dates, and outcomes; use that as the source of truth for the retrospective.
@@ -199,7 +199,7 @@ If no, stop here. Verdict: **BLOCKED** — user declined write.
 
 ## Phase 6: Next Steps
 
-Use `通过宿主 ask 机制向用户提问`:
+Use `the host's ask/question mechanism`:
 - Prompt: "Retrospective complete. The action items and velocity data are ready. Would you like to start sprint planning now with this data pre-loaded?"
 - Options:
   - `[A] Yes — open sprint planning with retro action items and velocity delta pre-populated`

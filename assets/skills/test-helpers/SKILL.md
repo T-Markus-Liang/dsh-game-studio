@@ -1,6 +1,6 @@
 ---
 name: test-helpers
-description: "Generate engine-specific test helper libraries for the project's test suite. Reads existing test patterns and produces testsers/ with assertion utilities, factory functions, and mock objects tailored to the project's systems. Reduces boilerplate in new test files."
+description: "Generate engine-specific test helper libraries for the project's test suite. Reads existing test patterns and produces tests/helpers/ with assertion utilities, factory functions, and mock objects tailored to the project's systems. Reduces boilerplate in new test files."
 argument-hint: "[system-name | all | scaffold]"
 user-invocable: false
 ---
@@ -9,10 +9,10 @@ user-invocable: false
 
 Writing test cases is faster and more consistent when common setup, teardown,
 and assertion patterns are abstracted into helpers. This skill generates a
-`testsers/` library tailored to the project's actual engine, language,
+`tests/helpers/` library tailored to the project's actual engine, language,
 and systems — so every developer writes less boilerplate and more assertions.
 
-**Output:** `testsers/` directory with engine-specific helper files
+**Output:** `tests/helpers/` directory with engine-specific helper files
 
 **When to run:**
 - After `/test-setup` scaffolds the framework (first time)
@@ -72,7 +72,7 @@ Also read:
 
 ### Godot 4 (GDUnit4 / GDScript)
 
-**Base helper** (`testsers/game_assertions.gd`):
+**Base helper** (`tests/helpers/game_assertions.gd`):
 
 ```gdscript
 ## Game-specific assertion utilities for [Project Name] tests.
@@ -129,7 +129,7 @@ static func assert_node_exists(parent: Node, path: NodePath) -> void:
     )
 ```
 
-**Factory helper** (`testsers/game_factory.gd`):
+**Factory helper** (`tests/helpers/game_factory.gd`):
 
 ```gdscript
 ## Factory functions for creating test game objects.
@@ -149,7 +149,7 @@ static func make_player(health: int = 100) -> Node:
     return player
 ```
 
-**Scene helper** (`testsers/scene_runner_helper.gd`):
+**Scene helper** (`tests/helpers/scene_runner_helper.gd`):
 
 ```gdscript
 ## Utilities for scene-based integration tests.
@@ -170,7 +170,7 @@ func load_scene_and_wait(scene_path: String) -> Node:
 
 ### Unity (NUnit / C#)
 
-**Base helper** (`testsers/GameAssertions.cs`):
+**Base helper** (`tests/helpers/GameAssertions.cs`):
 
 ```csharp
 using NUnit.Framework;
@@ -210,7 +210,7 @@ public static class GameAssertions
 }
 ```
 
-**Factory helper** (`testsers/GameFactory.cs`):
+**Factory helper** (`tests/helpers/GameFactory.cs`):
 
 ```csharp
 using UnityEngine;
@@ -242,7 +242,7 @@ public static class GameFactory
 
 ### Unreal Engine (C++)
 
-**Base helper** (`testsers/GameTestHelpers.h`):
+**Base helper** (`tests/helpers/GameTestHelpers.h`):
 
 ```cpp
 #pragma once
@@ -306,7 +306,7 @@ Read the system's GDD to extract:
 - Formula variables and their bounds
 - Common test scenarios mentioned in Edge Cases
 
-Generate `testsers/[system]_factory.[ext]` with factory functions
+Generate `tests/helpers/[system]_factory.[ext]` with factory functions
 specific to that system's objects.
 
 Example pattern for a `combat` system (Godot/GDScript):
@@ -352,15 +352,15 @@ Present a summary of what will be created:
 ## Test Helpers to Create
 
 Base helpers (engine: [engine]):
-- testsers/game_assertions.[ext]
-- testsers/game_factory.[ext]
+- tests/helpers/game_assertions.[ext]
+- tests/helpers/game_factory.[ext]
 [engine-specific extras]
 
 System helpers ([mode]):
-- testsers/[system]_factory.[ext]  ← from [system] GDD
+- tests/helpers/[system]_factory.[ext]  ← from [system] GDD
 ```
 
-Ask: "May I write these helper files to `testsers/`?"
+Ask: "May I write these helper files to `tests/helpers/`?"
 
 **Never overwrite existing files.** If a file already exists, report:
 "Skipping `[path]` — already exists. Remove the file manually if you want it
@@ -371,7 +371,7 @@ After writing: Verdict: **COMPLETE** — helper files created.
 "Helper files created. To use them in a test:
 - Godot: `class_name` is auto-imported — no explicit import needed
 - Unity: Add `using` directive or reference the test assembly
-- Unreal: `#include \"testsers/GameTestHelpers.h\"`"
+- Unreal: `#include \"tests/helpers/GameTestHelpers.h\"`"
 
 ---
 

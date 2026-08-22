@@ -98,7 +98,7 @@ Run domain-specific checks:
 
 ## Phase 6: Fix & Verify Cycle
 
-After presenting the report, use `通过宿主 ask 机制向用户提问`:
+After presenting the report, use `the host's ask/question mechanism`:
 - Prompt: "Balance check complete. What would you like to do next?"
 - Options:
   - `[A] Fix highest-priority issue now — walk me through it`

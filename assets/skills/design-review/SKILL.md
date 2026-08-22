@@ -100,7 +100,7 @@ These are the most common baselines — but not required for pure UI specs, audi
 
 ### Step 2 — Spawn all relevant specialists in parallel
 
-**CRITICAL: Task in this skill spawns a SUBAGENT — a separate independent Claude session
+**CRITICAL: Task in this skill spawns a SUBAGENT — a separate independent agent session
 with its own context window. It is NOT task tracking. Do NOT simulate specialist
 perspectives internally. Do NOT reason through domain views yourself. You MUST issue
 actual Task calls. A simulated review is not a specialist review.**
@@ -186,7 +186,7 @@ This skill is read-only — no files are written during Phase 4.
 
 ## Phase 5: Next Steps
 
-Use `通过宿主 ask 机制向用户提问` for ALL closing interactions. Never plain text.
+Use `the host's ask/question mechanism` for ALL closing interactions. Never plain text.
 
 **First widget — what to do next:**
 
@@ -199,9 +199,9 @@ If NEEDS REVISION or MAJOR REVISION NEEDED, options:
 
 **If user selects [A] — Revise now:**
 
-Work through all blocking items, asking for design decisions only where you cannot resolve the issue from the GDD and existing docs alone. Group all design-decision questions into a single multi-tab `通过宿主 ask 机制向用户提问` before making any edits — do not interrupt mid-revision for each blocker individually.
+Work through all blocking items, asking for design decisions only where you cannot resolve the issue from the GDD and existing docs alone. Group all design-decision questions into a single multi-tab `the host's ask/question mechanism` before making any edits — do not interrupt mid-revision for each blocker individually.
 
-After all revisions are complete, show a summary table (blocker → fix applied) and use `通过宿主 ask 机制向用户提问` for a **post-revision closing widget**:
+After all revisions are complete, show a summary table (blocker → fix applied) and use `the host's ask/question mechanism` for a **post-revision closing widget**:
 
 - Prompt: "Revisions complete — [N] blockers resolved. What next?"
 - Note current context usage: if context is above ~50%, add: "(Recommended: /clear before re-review — this session has used X% context. A full re-review runs 5 agents and needs clean context.)"
@@ -215,7 +215,7 @@ Never end the revision flow with plain text. Always close with this widget.
 
 **Second widget — tracking records (combined, for APPROVED path):**
 
-When the verdict is APPROVED, use a single `通过宿主 ask 机制向用户提问` with `multiSelect: true` to batch the two tracking updates:
+When the verdict is APPROVED, use a single `the host's ask/question mechanism` with `multiSelect: true` to batch the two tracking updates:
 - Prompt: "Verdict: APPROVED. I can update the tracking records now. Select any you'd like me to complete:"
 - Options:
   - `Update systems-index.md status to 'Approved' for [system]`
@@ -225,11 +225,11 @@ If the review-log option is selected, append the same format as below. Execute b
 
 When the verdict is NEEDS REVISION or MAJOR REVISION NEEDED, use separate widgets as before:
 
-Use a second `通过宿主 ask 机制向用户提问`:
+Use a second `the host's ask/question mechanism`:
 - Prompt: "May I update `design/gdd/systems-index.md` to mark [system] as [In Review / Approved]?"
 - Options: `[A] Yes — update it` / `[B] No — leave it as-is`
 
-Use a third `通过宿主 ask 机制向用户提问`:
+Use a third `the host's ask/question mechanism`:
 - Prompt: "May I append this review summary to `design/gdd/reviews/[doc-name]-review-log.md`? This creates a revision history so future re-reviews can track what changed."
 - Options: `[A] Yes — append to review log` / `[B] No — skip`
 
@@ -247,7 +247,7 @@ Prior verdict resolved: [Yes / No / First review]
 
 **Final closing widget — always show after all file writes complete:**
 
-Once the systems-index and review-log widgets are answered, check project state and show one final `通过宿主 ask 机制向用户提问`:
+Once the systems-index and review-log widgets are answered, check project state and show one final `the host's ask/question mechanism`:
 
 Before building options, read:
 - `design/gdd/systems-index.md` — find any system with Status: In Review or NEEDS REVISION (other than the one just reviewed)

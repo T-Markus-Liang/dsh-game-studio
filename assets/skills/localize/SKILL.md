@@ -329,7 +329,7 @@ Pre-Freeze Checklist
 [ ] Marketing strings (store description, achievements) are final
 ```
 
-Use `通过宿主 ask 机制向用户提问`:
+Use `the host's ask/question mechanism`:
 - Prompt: "Are all items above confirmed? Calling string freeze locks the source table."
 - Options: `[A] Yes — call string freeze now` / `[B] No — I still have strings to add`
 

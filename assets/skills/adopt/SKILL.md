@@ -59,7 +59,7 @@ Use the same heuristic as `/project-stage-detect`:
 - game-concept.md exists → Concept
 - Nothing → Fresh (not a brownfield project — suggest `/game start`)
 
-If the project appears fresh (no artifacts at all), use `通过宿主 ask 机制向用户提问`:
+If the project appears fresh (no artifacts at all), use `the host's ask/question mechanism`:
 - "This looks like a fresh project — no existing artifacts found. `/adopt` is for
   projects with work to migrate. What would you like to do?"
   - "Run `/game start` — begin guided first-time onboarding"
@@ -266,7 +266,7 @@ If a prior adoption plan was detected in Phase 1, add a note:
 > "A previous plan exists at `docs/adoption-plan-[prior-date].md`. The new plan will
 > reflect current project state — it does not diff against the prior run."
 
-Use `通过宿主 ask 机制向用户提问`:
+Use `the host's ask/question mechanism`:
 - "Ready to write the migration plan?"
   - "Yes — write `docs/adoption-plan-[date].md`"
   - "Show me the full plan preview first (don't write yet)"
@@ -367,7 +367,7 @@ After writing the adoption plan (or if the user cancels writing), check whether
 
 **If it exists**: Read it and note the current mode — "Review mode is already set to `[current]`." — skip the prompt.
 
-**If it does not exist**: Use `通过宿主 ask 机制向用户提问`:
+**If it does not exist**: Use `the host's ask/question mechanism`:
 
 - **Prompt**: "One more setup step: how much design review would you like as you work through the workflow?"
 - **Options**:
@@ -387,11 +387,11 @@ Create the `production/` directory if it does not exist.
 ## Phase 7: Offer First Action
 
 After writing the plan, don't stop there. Pick the single highest-priority gap
-and offer to handle it immediately using `通过宿主 ask 机制向用户提问`. Choose the first
+and offer to handle it immediately using `the host's ask/question mechanism`. Choose the first
 branch that applies:
 
 **If there are parenthetical status values in systems-index.md:**
-Use `通过宿主 ask 机制向用户提问`:
+Use `the host's ask/question mechanism`:
 - "The most urgent fix is `systems-index.md` — [N] rows have parenthetical status
   values (e.g. `Needs Revision (see notes)`) that break /gate-check,
   /create-stories, and /architecture-review right now. I can fix these in-place."
@@ -400,7 +400,7 @@ Use `通过宿主 ask 机制向用户提问`:
   - "Done — leave me with the plan"
 
 **If ADRs are missing `## Status` (and no parenthetical issue):**
-Use `通过宿主 ask 机制向用户提问`:
+Use `the host's ask/question mechanism`:
 - "The most urgent fix is adding `## Status` to [N] ADR(s): [list filenames].
   Without it, /story-readiness silently passes all ADR checks. Start with
   [first affected filename]?"
@@ -409,7 +409,7 @@ Use `通过宿主 ask 机制向用户提问`:
   - "I'll handle ADRs myself"
 
 **If GDDs are missing Acceptance Criteria (and no blocking issues above):**
-Use `通过宿主 ask 机制向用户提问`:
+Use `the host's ask/question mechanism`:
 - "The most urgent gap is missing Acceptance Criteria in [N] GDD(s):
   [list filenames]. Without them, /create-stories can't generate stories.
   Start with [highest-priority GDD filename]?"
@@ -418,7 +418,7 @@ Use `通过宿主 ask 机制向用户提问`:
   - "I'll handle GDDs myself"
 
 **If no BLOCKING or HIGH gaps exist:**
-Use `通过宿主 ask 机制向用户提问`:
+Use `the host's ask/question mechanism`:
 - "No blocking gaps — this project is template-compatible. What next?"
   - "Walk me through the medium-priority improvements"
   - "Run /project-stage-detect for a broader health check"

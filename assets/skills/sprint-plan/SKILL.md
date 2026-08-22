@@ -16,7 +16,7 @@ See `assets/docs/director-gates.md` for the full check pattern.
 
 **Review mode check** (before gates run):
 - Read `production/review-mode.txt` if it exists. Use that mode.
-- If the file doesn't exist and this is a `new` sprint: use `通过宿主 ask 机制向用户提问`:
+- If the file doesn't exist and this is a `new` sprint: use `the host's ask/question mechanism`:
   - Prompt: "No review mode is set. Which review depth would you like for this sprint?"
   - Options:
     - `[A] full — spawn all director and lead gates`
@@ -101,7 +101,7 @@ For `update`:
 
 1. Read the most recent sprint plan from `production/sprints/`.
 2. Present the current story list with their current statuses from `production/sprint-status.yaml`.
-3. Ask the user what to change: stories to add, remove, reprioritize, or re-estimate. Use `通过宿主 ask 机制向用户提问` to gather changes.
+3. Ask the user what to change: stories to add, remove, reprioritize, or re-estimate. Use `the host's ask/question mechanism` to gather changes.
 4. Apply the changes and re-present the full revised plan for review.
 5. Re-run the producer feasibility gate (Phase 4) on the revised plan.
 6. Write the updated markdown plan and yaml together (same approval as `new` mode).
@@ -147,7 +147,7 @@ For `status`:
 
 After generating a new sprint plan, also prepare the `production/sprint-status.yaml` content.
 This is the machine-readable source of truth for story status — read by
-`/sprint-status`, `/story-done`, and `` without markdown parsing.
+`/sprint-status`, `/story-done`, and `/game help` without markdown parsing.
 
 **Do not write the yaml yet** — hold it in context. The producer feasibility gate (Phase 4) may revise the story list. Both files will be written together after Phase 4 in a single write approval.
 
@@ -209,7 +209,7 @@ Present the producer's assessment.
 
 If UNREALISTIC: revise the story selection (defer stories to Should Have or Nice to Have) and re-present the updated plan before asking for write approval.
 
-If CONCERNS, use `通过宿主 ask 机制向用户提问`:
+If CONCERNS, use `the host's ask/question mechanism`:
 - Prompt: "Producer flagged concerns with this sprint plan. How do you want to proceed?"
 - Options:
   - `[A] Proceed as planned — I accept the risk`
@@ -242,7 +242,7 @@ Use `Glob` to look for `production/qa/qa-plan-sprint-[N].md` or any file in `pro
 >
 > Run `/qa-plan sprint` now, before starting any implementation. It takes one session and produces the test case requirements each story needs."
 
-Use `通过宿主 ask 机制向用户提问`:
+Use `the host's ask/question mechanism`:
 - Prompt: "No QA plan found for this sprint. How do you want to proceed?"
 - Options:
   - `[A] Run /qa-plan sprint now — I'll do that before starting implementation (Recommended)`

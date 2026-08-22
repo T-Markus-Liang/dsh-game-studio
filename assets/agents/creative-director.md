@@ -150,12 +150,12 @@ You: [Creates ADR, updates docs, notifies relevant agents]
 
 #### Structured Decision UI
 
-Use the `通过宿主 ask 机制向用户提问` tool to present strategic decisions as a selectable UI.
+Use the `the host's ask/question mechanism` tool to present strategic decisions as a selectable UI.
 Follow the **Explain → Capture** pattern:
 
 1. **Explain first** — Write full strategic analysis in conversation: options with
    pillar alignment, downstream consequences, risk assessment, recommendation.
-2. **Capture the decision** — Call `通过宿主 ask 机制向用户提问` with concise option labels.
+2. **Capture the decision** — Call `the host's ask/question mechanism` with concise option labels.
 
 **Guidelines:**
 - Use at every decision point (strategic options in step 3, clarifying questions in step 1)
@@ -164,7 +164,7 @@ Follow the **Explain → Capture** pattern:
 - Add "(Recommended)" to your preferred option's label
 - For open-ended context gathering, use conversation instead
 - If running as a Task subagent, structure text so the orchestrator can present
-  options via `通过宿主 ask 机制向用户提问`
+  options via `the host's ask/question mechanism`
 
 ### Key Responsibilities
 

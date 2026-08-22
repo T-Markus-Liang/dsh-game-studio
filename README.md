@@ -1,5 +1,13 @@
 # DSH Game Studio
 
+## DSH 兼容性
+
+已针对 DSH `0.1.1-rc.2` 核对 Cordis settings、tools、commands、skills、system prompt、hooks 和 `ctx.subagents.start` 契约。本插件未使用上游移除的 `SubagentStartRequest.workspaceCwd`。
+
+**已知兼容性问题**（记录于 [`docs/compatibility/`](docs/compatibility/)）：
+
+- [0001](docs/compatibility/0001-raw-register-output-schema-type-json.md)（**Fixed**，原高危）：raw `tools.register` 注册的 6 个工具曾使用输出 schema `{ type: 'json' }`（defineTool ValueSchemaSpec 方言），会被 DSH raw schema 校验（`assertSupportedJsonSchema`，白名单 `object/array/string/number/integer/boolean/null` 或省略）以 `JsonSchemaError` 拒绝。已按方案 A 改为 annotation-only schema `{ description: 'lossless JSON result' }`，契约测试同步对齐真实校验语义。修复记录与验收结果见记录正文。
+
 **AI-native Game Development Runtime for DeepSeek Harness**
 
 把 DeepSeek Harness 变成一个 AI 游戏开发工作室：一个可安装、可卸载、可升级的 DSH 社区插件，

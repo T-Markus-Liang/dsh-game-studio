@@ -15,7 +15,7 @@ Read the bug description or ID. Assess severity using these criteria:
 - **S2 (Major)**: Significant feature broken, workaround exists
 - **S3 or lower**: Minor issue — normal bug fix workflow applies
 
-Confirm with `通过宿主 ask 机制向用户提问`:
+Confirm with `the host's ask/question mechanism`:
 - Prompt: "I've assessed this as **[assessed severity]** — [brief rationale]. Confirm severity to proceed:"
 - Options:
   - `[A] S1 (Critical) — game unplayable, data loss, or security issue`
@@ -72,7 +72,7 @@ Check whether this is a git repository:
 
 If this command fails or returns empty: note "Not a git repository — create the branch manually." and skip branch creation.
 
-If the check passes, use `通过宿主 ask 机制向用户提问` before creating the branch:
+If the check passes, use `the host's ask/question mechanism` before creating the branch:
 - Prompt: "Ready to create hotfix branch 'hotfix/[short-name]' from [base-ref]?"
 - Options:
   - `[A] Yes — create branch`
@@ -95,7 +95,7 @@ Update the hotfix record with root cause, fix details, and test results.
 
 ## Phase 5: Collect Approvals
 
-Use the Task tool to request sign-off in parallel:
+Use the subagent tool to request sign-off in parallel:
 
 - `subagent_type: lead-programmer` — Review the fix for correctness and side effects
 - `subagent_type: qa-tester` — Run targeted regression tests on the affected system
@@ -170,7 +170,7 @@ If STILL PRESENT: the hotfix failed — immediately re-open, assess rollback, an
 
 Schedule a post-incident review within 48 hours using `/retrospective hotfix`.
 
-Use `通过宿主 ask 机制向用户提问`:
+Use `the host's ask/question mechanism`:
 - Prompt: "Hotfix complete. What's the next step?"
 - Options:
   - `[A] Run /smoke-check to verify the fix`

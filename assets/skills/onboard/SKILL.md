@@ -91,4 +91,4 @@ Verdict: **COMPLETE** — onboarding document generated.
 
 - Share the onboarding doc with the new contributor before their first session.
 - Run `/sprint-status` to show the new contributor current progress.
-- Run `` if the contributor needs guidance on what to work on next.
+- Run `/game help` if the contributor needs guidance on what to work on next.

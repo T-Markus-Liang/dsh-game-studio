@@ -7,7 +7,7 @@ user-invocable: false
 
 When this skill is invoked, orchestrate the UI team through a structured pipeline.
 
-**Decision Points:** At each phase transition, use `通过宿主 ask 机制向用户提问` to present
+**Decision Points:** At each phase transition, use `the host's ask/question mechanism` to present
 the user with the subagent's proposals as selectable options. Write the agent's
 full analysis in conversation, then capture the decision with concise labels.
 The user must approve before moving to the next phase.
@@ -42,7 +42,7 @@ Store the resolved mode for use in all subsequent phases.
 
 ## How to Delegate
 
-Use the Task tool to spawn each team member as a subagent:
+Delegate via the subagent tool to spawn each team member as a subagent:
 - `subagent_type: ux-designer` — User flows, wireframes, accessibility, input handling
 - `subagent_type: ui-programmer` — UI framework, screens, widgets, data binding
 - `subagent_type: art-director` — Visual style, layout polish, art bible consistency
@@ -65,7 +65,7 @@ Before designing anything, read and synthesize:
 **If `design/ux/interaction-patterns.md` does not exist**, surface the gap immediately:
 > "interaction-patterns.md does not exist — no existing patterns to reuse."
 
-Then use `通过宿主 ask 机制向用户提问` with options:
+Then use `the host's ask/question mechanism` with options:
 - (a) Run `/ux-design patterns` first to establish the pattern library, then continue
 - (b) Proceed without the pattern library — ui-programmer will treat all patterns created as new and add each to a new `design/ux/interaction-patterns.md` at completion
 
@@ -89,7 +89,7 @@ Output: `design/ux/[feature-name].md` with all required spec sections filled.
 
 After the spec is complete, invoke `/ux-review design/ux/[feature-name].md`.
 
-**Gate**: Do not proceed to Phase 2 until the verdict is APPROVED. If the verdict is NEEDS REVISION, the ux-designer must address the flagged issues and re-run the review. The user may explicitly accept a NEEDS REVISION risk and proceed, but this must be a conscious decision — present the specific concerns via `通过宿主 ask 机制向用户提问` before asking whether to proceed.
+**Gate**: Do not proceed to Phase 2 until the verdict is APPROVED. If the verdict is NEEDS REVISION, the ux-designer must address the flagged issues and re-run the review. The user may explicitly accept a NEEDS REVISION risk and proceed, but this must be a conscious decision — present the specific concerns via `the host's ask/question mechanism` before asking whether to proceed.
 
 ### Phase 2: Visual Design
 
@@ -153,7 +153,7 @@ If any spawned agent (via Task) returns BLOCKED, errors, or cannot complete:
 
 1. **Surface immediately**: Report "[AgentName]: BLOCKED — [reason]" to the user before continuing to dependent phases
 2. **Assess dependencies**: Check whether the blocked agent's output is required by subsequent phases. If yes, do not proceed past that dependency point without user input.
-3. **Offer options** via 通过宿主 ask 机制向用户提问 with choices:
+3. **Offer options** via the host's ask/question mechanism with choices:
    - Skip this agent and note the gap in the final report
    - Retry with narrower scope
    - Stop here and resolve the blocker first

@@ -32,7 +32,7 @@ Before writing any code:
    - Ask about ambiguities rather than assuming
    - Flag potential issues or edge cases for user input
    - Write each section to the file as soon as it's approved
-   - Update `.dsh/game-studio/state//active.md` after each section with:
+   - Update `.dsh/game-studio/state/active.md` after each section with:
      current task, completed sections, key decisions, next section
    - After writing a section, earlier discussion can be safely compacted
 
@@ -58,9 +58,9 @@ Before writing any code:
 
 #### Structured Decision UI
 
-Use the `通过宿主 ask 机制向用户提问` tool for implementation choices and next-step decisions.
+Use the `the host's ask/question mechanism` tool for implementation choices and next-step decisions.
 Follow the **Explain -> Capture** pattern: explain options in conversation, then
-call `通过宿主 ask 机制向用户提问` with concise labels. Batch up to 4 questions in one call.
+call `the host's ask/question mechanism` with concise labels. Batch up to 4 questions in one call.
 For open-ended writing questions, use conversation instead.
 
 ### Key Responsibilities

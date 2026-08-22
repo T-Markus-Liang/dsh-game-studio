@@ -71,8 +71,12 @@ export function detectAll(cwd) {
   const candidates = scanDirs(cwd, 3)
   let best = { engine: 'unknown', version: null, projectRoot: cwd, projectFile: null, evidence: [], score: 0 }
 
-  for (const { dir } of candidates) {
-    const r = tryDetectUnity(dir) || tryDetectUnreal(dir) || tryDetectGodot(dir)
+  for (const { depth, dir } of candidates) {
+    // 向上扫描（depth > 0）只认强证据（project.godot / ProjectVersion.txt / *.uproject 等
+    // 项目标志文件）；弱证据（杂散 *.gd / *.tscn / Content/ 等）只在起始目录及子目录生效，
+    // 否则父目录（如 /tmp）里的杂散文件会把空子目录误判成项目并让 projectRoot 漂移。
+    const strongOnly = depth > 0
+    const r = tryDetectUnity(dir, strongOnly) || tryDetectUnreal(dir, strongOnly) || tryDetectGodot(dir, strongOnly)
     if (r && r.score > best.score) best = { ...r, projectRoot: dir }
   }
 
@@ -82,7 +86,7 @@ export function detectAll(cwd) {
 
 // ── Unity ──────────────────────────────────────────────────
 
-function tryDetectUnity(dir) {
+function tryDetectUnity(dir, strongOnly = false) {
   const evidence = []
   let version = null
   let score = 0
@@ -103,7 +107,7 @@ function tryDetectUnity(dir) {
     score += 10
   }
 
-  if (score === 0) {
+  if (score === 0 && !strongOnly) {
     if (hasExt(dir, '.unity')) { evidence.push('*.unity files'); score += 2 }
     if (hasExt(dir, '.asmdef')) { evidence.push('*.asmdef'); score += 2 }
     if (existsSync(join(dir, 'Library'))) { evidence.push('Library/'); score += 2 }
@@ -114,7 +118,7 @@ function tryDetectUnity(dir) {
 
 // ── Unreal ─────────────────────────────────────────────────
 
-function tryDetectUnreal(dir) {
+function tryDetectUnreal(dir, strongOnly = false) {
   const evidence = []
   let version = null
   let projectFile = null
@@ -136,7 +140,7 @@ function tryDetectUnreal(dir) {
     }
   } catch { /* ignore */ }
 
-  if (score === 0) {
+  if (score === 0 && !strongOnly) {
     if (existsSync(join(dir, 'Content'))) { evidence.push('Content/'); score += 2 }
     if (existsSync(join(dir, 'Config', 'DefaultEngine.ini'))) { evidence.push('Config/DefaultEngine.ini'); score += 2 }
     if (existsSync(join(dir, 'Source'))) { evidence.push('Source/'); score += 2 }
@@ -147,7 +151,7 @@ function tryDetectUnreal(dir) {
 
 // ── Godot ──────────────────────────────────────────────────
 
-function tryDetectGodot(dir) {
+function tryDetectGodot(dir, strongOnly = false) {
   const evidence = []
   let version = null
   let score = 0
@@ -161,7 +165,10 @@ function tryDetectGodot(dir) {
         const cv = parseInt(m[1], 10)
         version = cv >= 5 ? '4.x' : '3.x'
       }
-      const f = text.match(/features\s*=\s*\[(.+?)\]/)
+      // 兼容两种 features 格式：
+      //   Godot 4 实际写法: config/features=PackedStringArray("4.7", "GL Compatibility")
+      //   旧/方括号写法:     features=["4.7", "GL Compatibility"]
+      const f = text.match(/features\s*=\s*(?:PackedStringArray\s*\(|\[)(.+?)(?:\)|\])/)
       if (f) {
         const vm = f[1].match(/"(\d+\.\d+)"/)
         if (vm) version = vm[1]
@@ -171,7 +178,7 @@ function tryDetectGodot(dir) {
     score += 10
   }
 
-  if (score === 0) {
+  if (score === 0 && !strongOnly) {
     if (hasExt(dir, '.gd')) { evidence.push('*.gd files'); score += 2 }
     if (hasExt(dir, '.tscn')) { evidence.push('*.tscn files'); score += 2 }
     if (existsSync(join(dir, '.godot'))) { evidence.push('.godot/'); score += 2 }

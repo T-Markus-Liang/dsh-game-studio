@@ -6,7 +6,7 @@ user-invocable: false
 ---
 
 If no argument is provided, check whether `design/assets/entity-inventory.md` exists:
-- If it exists: read it, find the first entity or screen with status "Needed" but no spec file yet, and use `通过宿主 ask 机制向用户提问`:
+- If it exists: read it, find the first entity or screen with status "Needed" but no spec file yet, and use `the host's ask/question mechanism`:
   - Prompt: "The next unspecced item is **[name]**. Generate specs for it?"
   - Options: `[A] Yes — spec [name]` / `[B] Pick a different item` / `[C] Stop here`
 - If no entity inventory: check `design/assets/asset-manifest.md`. If manifest exists, same flow above but reading from manifest.
@@ -45,7 +45,7 @@ Other
 For each item, note the source doc it was found in.
 
 ### Step 3 — Present and collaborate
-Present the full proposed inventory to the user in conversation. Then use `通过宿主 ask 机制向用户提问`:
+Present the full proposed inventory to the user in conversation. Then use `the host's ask/question mechanism`:
 - Prompt: "I found **[N] visual entities and [N] UI screens** across your GDDs and art bible. Review the list — what's missing, what's not needed?"
 - Options:
   - `[A] Looks good — save this inventory`
@@ -127,10 +127,10 @@ Read all source material **before** asking the user anything.
 ### Source doc reads (by target type):
 - **system**: Read `design/gdd/[target-name].md`. Extract the **Visual/Audio Requirements** section. If it doesn't exist or reads `[To be designed]`:
   > "The Visual/Audio section of `design/gdd/[target-name].md` is empty. Either run `/design-system [target-name]` to complete the GDD, or describe the visual needs manually."
-  Use `通过宿主 ask 机制向用户提问`: `[A] Describe needs manually` / `[B] Stop — complete the GDD first`
+  Use `the host's ask/question mechanism`: `[A] Describe needs manually` / `[B] Stop — complete the GDD first`
 - **level**: Read `design/levels/[target-name].md`. Extract art requirements, asset list, VFX needs, and the art-director's production concept specs from Step 4.
 - **character** or **entity**: Read `design/narrative/characters/[target-name].md` or search `design/narrative/` and `design/assets/entity-inventory.md` for a matching entry. Extract visual description, role, and any specified distinguishing features.
-  - **If no source doc exists**: do not fail. Instead, use `通过宿主 ask 机制向用户提问`:
+  - **If no source doc exists**: do not fail. Instead, use `the host's ask/question mechanism`:
     - Prompt: "No profile found for **[name]**. Describe it briefly — a sentence or two is enough."
     - Options: `[A] Describe it now` / `[B] Skip this entity` / `[C] Stop here`
     - If [A]: the user's description becomes the source. Brief answers produce concise specs; detailed answers produce detailed specs. Accept whatever level of detail the user provides and work from it.
@@ -166,7 +166,7 @@ Group assets into categories:
 - **Audio** — SFX, music tracks, ambient loops *(note: audio specs are descriptions only — no generation prompts)*
 - **3D Assets** — meshes, materials (if applicable per engine)
 
-Present the full identified list to the user. Use `通过宿主 ask 机制向用户提问`:
+Present the full identified list to the user. Use `the host's ask/question mechanism`:
 - Prompt: "I identified [N] assets across [N] categories for **[target]**. Review before speccing:"
 - Show the grouped list in conversation text first
 - Options: `[A] Proceed — spec all of these` / `[B] Remove some assets` / `[C] Add assets I didn't catch` / `[D] Adjust categories`
@@ -226,7 +226,7 @@ Combine the agent outputs into a draft spec per asset. Present all specs in conv
 **Status:** Needed
 ```
 
-After presenting all specs, use `通过宿主 ask 机制向用户提问`:
+After presenting all specs, use `the host's ask/question mechanism`:
 - Prompt: "Asset specs for **[target]** — [N] assets. Review complete?"
 - Options: `[A] Approve all — write to file` / `[B] Revise a specific asset` / `[C] Regenerate with different direction`
 
@@ -282,7 +282,7 @@ Ask: "May I update `design/assets/asset-manifest.md`?"
 
 ## Phase 6: Close
 
-Use `通过宿主 ask 机制向用户提问`:
+Use `the host's ask/question mechanism`:
 - Prompt: "Asset specs complete for **[target]**. What's next?"
 - Options:
   - `[A] Spec another system — /asset-spec system:[next-system]`

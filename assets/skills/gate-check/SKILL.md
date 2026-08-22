@@ -45,7 +45,7 @@ Note: in `solo` mode, director spawns (CD-PHASE-GATE, TD-PHASE-GATE, PR-PHASE-GA
 - **No argument**: Auto-detect current stage using the same heuristics as
   `/project-stage-detect`, then **confirm with the user before running**:
 
-  Use `通过宿主 ask 机制向用户提问`:
+  Use `the host's ask/question mechanism`:
   - Prompt: "Detected stage: **[current stage]**. Running gate for [Current] → [Next] transition. Is this correct?"
   - Options:
     - `[A] Yes — run this gate`
@@ -442,7 +442,7 @@ echo -n "Production" > production/stage.txt
 
 ## 7. Closing Next-Step Widget
 
-After the verdict is presented and any stage.txt update is complete, close with a structured next-step prompt using `通过宿主 ask 机制向用户提问`.
+After the verdict is presented and any stage.txt update is complete, close with a structured next-step prompt using `the host's ask/question mechanism`.
 
 **Tailor the options to the gate that just ran:**
 

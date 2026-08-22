@@ -180,7 +180,7 @@ Tailor batches 2 and 3 to the actual systems identified from the sprint or QA
 plan. Replace bracketed placeholders with real mechanic names from the current
 sprint's stories.
 
-Use `通过宿主 ask 机制向用户提问` to batch-verify. Keep to at most 3 calls.
+Use `the host's ask/question mechanism` to batch-verify. Keep to at most 3 calls.
 
 **Batch 1 — Core stability (always run):**
 ```
@@ -415,6 +415,6 @@ agent to begin manual verification."
   gaps for `/story-done` to follow up on.
 - **`quick` argument** skips Phase 3 (coverage scan) and Phase 4 Batch 3.
   Use it for rapid re-checks after fixing a specific failure.
-- Use `通过宿主 ask 机制向用户提问` for all manual smoke check verification.
+- Use `the host's ask/question mechanism` for all manual smoke check verification.
 - **Never write the report without asking** — Phase 6 requires explicit
   approval before any file is created.

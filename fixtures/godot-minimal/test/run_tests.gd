@@ -4,8 +4,10 @@ extends SceneTree
 # 预期失败（修复前）：T3 third jump should be rejected。
 
 func _init() -> void:
-	var failures := 0
-	var player := load("res://player.gd").new()
+	var failures: int = 0
+	# 注意：load() 返回 Variant，Godot 4.x（实测 4.7）下 := 无法推断类型，
+	# 会触发 Parse Error "Cannot infer the type of variable"，脚本根本不执行。
+	var player = load("res://player.gd").new()
 
 	# T1 地面首跳成功
 	player.reset()

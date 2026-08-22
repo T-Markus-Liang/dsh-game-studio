@@ -44,7 +44,7 @@ and redirect to `/design-system` instead.
 
 If there is no argument, ask the user to describe the change (plain text prompt), then classify it using the criteria above.
 
-Present the inferred classification using `通过宿主 ask 机制向用户提问`:
+Present the inferred classification using `the host's ask/question mechanism`:
 - Prompt: "I've classified this as **[inferred type]** — [brief reason]. Is that correct?"
 - Options:
   - `[A] Yes — [inferred type] is correct`
@@ -220,7 +220,7 @@ tracking threshold — quick spec is sufficient."]
 
 ## 4. Approval and Filing
 
-Present the draft to the user in full. Then use `通过宿主 ask 机制向用户提问`:
+Present the draft to the user in full. Then use `the host's ask/question mechanism`:
 - Prompt: "Here's the Quick Design Spec draft. How do you want to proceed?"
 - Options:
   - `[A] Approve — write it as shown`

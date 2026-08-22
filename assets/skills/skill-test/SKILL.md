@@ -161,7 +161,7 @@ For each **Test Case** in the spec:
 
 For each assertion, evaluate whether the skill's written instructions, if
 followed correctly given the fixture state, would satisfy it. This is a
-Claude-evaluated reasoning check, not code execution.
+agent-evaluated reasoning check, not code execution.
 
 Mark each assertion:
 - **PASS** — skill instructions clearly satisfy this assertion

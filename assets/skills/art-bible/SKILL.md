@@ -57,7 +57,7 @@ Read `assets/docs/technical-preferences.md` if it exists — extract performance
 
 Present the session context and ask two questions before authoring anything:
 
-Use `通过宿主 ask 机制向用户提问` with two tabs:
+Use `the host's ask/question mechanism` with two tabs:
 - Tab **"Scope"** — "Which sections need to be authored today?"
   Options: `Full bible — all 9 sections` / `Visual identity core (sections 1–4 only)` / `Asset standards only (section 8)` / `Resume — fill in missing sections`
 - Tab **"References"** — "Do you have reference games, films, or art that define the visual direction?"
@@ -85,7 +85,7 @@ If a visual anchor exists from game-concept.md: present it and ask:
 - Provide: game concept (elevator pitch, core fantasy), full pillar set, platform target, any reference games/art from Phase 1 framing, the visual anchor if it exists
 - Ask: "Draft a Visual Identity Statement for this game. Provide: (1) a one-line visual rule that could resolve any visual decision ambiguity, (2) 2–3 supporting visual principles, each with a one-sentence design test ('when X is ambiguous, this principle says choose Y'). Anchor all principles directly in the stated pillars — each principle must serve a specific pillar."
 
-Present the art-director's draft to the user. Use `通过宿主 ask 机制向用户提问`:
+Present the art-director's draft to the user. Use `the host's ask/question mechanism`:
 - Options: `[A] Lock this in` / `[B] Revise the one-liner` / `[C] Revise a supporting principle` / `[D] Describe my own direction`
 
 Write the approved section to file immediately.
@@ -157,7 +157,7 @@ Write the approved section to file.
 - **`art-director`**: Visual style for UI — diegetic vs. screen-space HUD, typography direction (font personality, weight, size hierarchy), iconography style (flat/outlined/illustrated/photorealistic), animation feel for UI elements
 - **`ux-designer`**: UX alignment check — does the visual direction support the interaction patterns this game requires? Flag any conflicts between art direction and readability/accessibility needs.
 
-Collect both. If they conflict (e.g., art-director wants elaborate diegetic UI but ux-designer flags it would reduce combat readability), surface the conflict explicitly with both positions. Do NOT silently resolve — use `通过宿主 ask 机制向用户提问` to let the user decide.
+Collect both. If they conflict (e.g., art-director wants elaborate diegetic UI but ux-designer flags it would reduce combat readability), surface the conflict explicitly with both positions. Do NOT silently resolve — use `the host's ask/question mechanism` to let the user decide.
 
 Write the approved section to file.
 
@@ -208,7 +208,7 @@ Before presenting next steps, check project state:
 - Does `design/gdd/gdd-cross-review-*.md` exist? → review-all-gdds is done
 - Do GDDs exist (check above)? → include /consistency-check option
 
-Use `通过宿主 ask 机制向用户提问` for next steps. Only include options that are genuinely next based on the state check above:
+Use `the host's ask/question mechanism` for next steps. Only include options that are genuinely next based on the state check above:
 
 **Option pool — include only if not already done:**
 - `[_] Run /map-systems — decompose the concept into systems before writing GDDs` (skip if systems-index.md exists)

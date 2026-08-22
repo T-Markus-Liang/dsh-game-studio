@@ -118,14 +118,14 @@ Pass: milestone name and target date, current completion percentage, blocked sto
 
 Present the producer's assessment inline within the Go/No-Go section. The producer's verdict (ON TRACK / AT RISK / OFF TRACK) informs the overall recommendation.
 
-If OFF TRACK, use `通过宿主 ask 机制向用户提问` before generating the recommendation:
+If OFF TRACK, use `the host's ask/question mechanism` before generating the recommendation:
 - Prompt: "Producer verdict: OFF TRACK. The milestone is in jeopardy. This review will recommend NO-GO. How do you want to proceed?"
 - Options:
   - `[A] Accept NO-GO — generate the full review with that recommendation`
   - `[B] Override to CONDITIONAL GO — I'll document the accepted risks myself`
   - `[C] Stop — I want to address blockers before generating the review`
 
-If AT RISK, use `通过宿主 ask 机制向用户提问`:
+If AT RISK, use `the host's ask/question mechanism`:
 - Prompt: "Producer verdict: AT RISK. Milestone may slip. How should the Go/No-Go section be framed?"
 - Options:
   - `[A] CONDITIONAL GO — include producer's conditions in the review`

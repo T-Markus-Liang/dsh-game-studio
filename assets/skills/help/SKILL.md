@@ -72,7 +72,7 @@ Check in this order:
 
 ## Step 3: Read Session Context
 
-Read `.dsh/game-studio/state//active.md` if it exists. Extract:
+Read `.dsh/game-studio/state/active.md` if it exists. Extract:
 - What was most recently worked on
 - Any in-progress tasks or open questions
 - Current epic/feature/task from STATUS block (if present)

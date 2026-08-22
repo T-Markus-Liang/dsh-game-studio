@@ -1,36 +1,199 @@
 {
   "agents": {
-    "frontmatterKeep": ["name", "description"],
-    "frontmatterRemove": ["tools", "allowed-tools", "model", "maxTurns", "memory"],
+    "frontmatterKeep": [
+      "name",
+      "description"
+    ],
+    "frontmatterRemove": [
+      "tools",
+      "allowed-tools",
+      "model",
+      "maxTurns",
+      "memory"
+    ],
     "frontmatterMap": {},
     "personaReplacements": [
-      {"pattern": "AskUserQuestion", "replacement": "通过宿主 ask 机制向用户提问"},
-      {"pattern": "\\.claude/", "replacement": "assets/"},
-      {"pattern": "production/session-state", "replacement": ".dsh/game-studio/state/"},
-      {"pattern": "Claude Code", "replacement": "DSH"},
-      {"pattern": "CLAUDE.md", "replacement": "AGENTS.md"}
+      {
+        "pattern": "AskUserQuestion",
+        "replacement": "the host's ask/question mechanism"
+      },
+      {
+        "pattern": "\\.claude/",
+        "replacement": "assets/"
+      },
+      {
+        "pattern": "production/session-state",
+        "replacement": ".dsh/game-studio/state"
+      },
+      {
+        "pattern": "Use the Task tool to spawn",
+        "replacement": "Delegate via the subagent tool to spawn"
+      },
+      {
+        "pattern": "the Task tool",
+        "replacement": "the subagent tool"
+      },
+      {
+        "pattern": "Task tool",
+        "replacement": "subagent tool"
+      },
+      {
+        "pattern": "independent Claude session",
+        "replacement": "independent agent session"
+      },
+      {
+        "pattern": "Claude-evaluated",
+        "replacement": "agent-evaluated"
+      },
+      {
+        "pattern": "Claude Code",
+        "replacement": "DSH"
+      },
+      {
+        "pattern": "CLAUDE.md",
+        "replacement": "AGENTS.md"
+      },
+      {
+        "pattern": "\\bClaude\\b",
+        "replacement": "the agent"
+      }
     ]
   },
   "skills": {
-    "frontmatterKeep": ["name", "description", "argument-hint"],
-    "frontmatterRemove": ["allowed-tools", "model", "agent", "user-invocable"],
-    "frontmatterAdd": {"user-invocable": false},
+    "frontmatterKeep": [
+      "name",
+      "description",
+      "argument-hint"
+    ],
+    "frontmatterRemove": [
+      "allowed-tools",
+      "model",
+      "agent",
+      "user-invocable"
+    ],
+    "frontmatterAdd": {
+      "user-invocable": false
+    },
     "bodyReplacements": [
-      {"pattern": "AskUserQuestion", "replacement": "通过宿主 ask 机制向用户提问"},
-      {"pattern": "\\.claude/", "replacement": "assets/"},
-      {"pattern": "production/session-state", "replacement": ".dsh/game-studio/state/"},
-      {"pattern": "Slash command", "replacement": "命令"},
-      {"pattern": "/start", "replacement": "/game start"},
-      {"pattern": "/help", "replacement": null},
-      {"pattern": "Claude Code", "replacement": "DSH"},
-      {"pattern": "CLAUDE.md", "replacement": "AGENTS.md"},
-      {"pattern": "`allowed-tools`", "replacement": null}
+      {
+        "pattern": "AskUserQuestion",
+        "replacement": "the host's ask/question mechanism"
+      },
+      {
+        "pattern": "\\.claude/",
+        "replacement": "assets/"
+      },
+      {
+        "pattern": "production/session-state",
+        "replacement": ".dsh/game-studio/state"
+      },
+      {
+        "pattern": "Use the Task tool to spawn",
+        "replacement": "Delegate via the subagent tool to spawn"
+      },
+      {
+        "pattern": "the Task tool",
+        "replacement": "the subagent tool"
+      },
+      {
+        "pattern": "Task tool",
+        "replacement": "subagent tool"
+      },
+      {
+        "pattern": "independent Claude session",
+        "replacement": "independent agent session"
+      },
+      {
+        "pattern": "Claude-evaluated",
+        "replacement": "agent-evaluated"
+      },
+      {
+        "pattern": "Slash command",
+        "replacement": "命令"
+      },
+      {
+        "pattern": "/start(?![A-Za-z-])",
+        "replacement": "/game start"
+      },
+      {
+        "pattern": "/help(?![A-Za-z-])",
+        "replacement": "/game help"
+      },
+      {
+        "pattern": "Claude Code",
+        "replacement": "DSH"
+      },
+      {
+        "pattern": "CLAUDE.md",
+        "replacement": "AGENTS.md"
+      },
+      {
+        "pattern": "\\bClaude\\b",
+        "replacement": "the agent"
+      },
+      {
+        "pattern": "`allowed-tools`",
+        "replacement": null
+      }
     ]
   },
-  "rules": {
-    "maxLines": 40
+  "docs": {
+    "replacements": [
+      {
+        "pattern": "AskUserQuestion",
+        "replacement": "the host's ask/question mechanism"
+      },
+      {
+        "pattern": "\\.claude/",
+        "replacement": "assets/"
+      },
+      {
+        "pattern": "production/session-state",
+        "replacement": ".dsh/game-studio/state"
+      },
+      {
+        "pattern": "Use the Task tool to spawn",
+        "replacement": "Delegate via the subagent tool to spawn"
+      },
+      {
+        "pattern": "the Task tool",
+        "replacement": "the subagent tool"
+      },
+      {
+        "pattern": "Task tool",
+        "replacement": "subagent tool"
+      },
+      {
+        "pattern": "independent Claude session",
+        "replacement": "independent agent session"
+      },
+      {
+        "pattern": "Claude-evaluated",
+        "replacement": "agent-evaluated"
+      },
+      {
+        "pattern": "/start(?![A-Za-z-])",
+        "replacement": "/game start"
+      },
+      {
+        "pattern": "/help(?![A-Za-z-])",
+        "replacement": "/game help"
+      },
+      {
+        "pattern": "Claude Code",
+        "replacement": "DSH"
+      },
+      {
+        "pattern": "CLAUDE.md",
+        "replacement": "AGENTS.md"
+      },
+      {
+        "pattern": "\\bClaude\\b",
+        "replacement": "the agent"
+      }
+    ]
   },
-  "templates": {
-    "maxLines": 100
+  "manifest": {
+    "summaryMaxChars": 120
   }
 }

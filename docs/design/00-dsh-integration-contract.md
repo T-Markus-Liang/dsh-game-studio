@@ -223,3 +223,24 @@ ctx.tools.register(defineTool({
   DSH 一概没有对应物，原项目资源里这些字段必须按 09 号文档清洗转换。
 - ❌ 稳定 API 承诺——DSH pre-release，peerDependencies 用宽松版本并在 CI 里对 rc 版本冒烟。
 - ⚠️ `deepseek-v4-flash` 等模型名是**本机部署配置**，文档与代码中只作为默认值示例出现，一律可配。
+
+## 12. 契约核对记录
+
+后验核对中确认的机制事实（每条附来源，行号为记录时点，pre-release 会漂移）：
+
+- **raw `tools.register` 对 `output.schema` 执行 `assertSupportedJsonSchema`**
+  （`packages/core/tools/src/index.ts:1045`，函数定义
+  `packages/core/tools/src/json-schema.ts:385`）。受支持子集：`type`
+  **省略（annotation-only，无约束 JSON 的标准形态）或 ∈
+  `object/array/string/number/integer/boolean/null`**（白名单
+  `SCHEMA_TYPES`，`json-schema.ts:87`；违规报
+  `schema.type must be one of ...`，`json-schema.ts:303-306`）；
+  关键字限于 `type/oneOf/properties/required/additionalProperties/items/enum/const`
+  加注解 `description/title/default/examples`（`json-schema.ts:76-86`），
+  `properties`/`items` 子 schema 递归受检。
+  **`type: 'json'` 不在该子集内** —— 它仅是 `defineTool` 的 author-facing
+  ValueSchemaSpec 方言（`packages/core/tools/src/schema.ts:361` 的
+  `case 'json'` 分支），其编译产物是 annotation-only 空 schema；raw 路径
+  直接写 `{ type: 'json' }` 会在注册时抛 `JsonSchemaError`。
+  见兼容性记录
+  [0001](../compatibility/0001-raw-register-output-schema-type-json.md)（Fixed）。

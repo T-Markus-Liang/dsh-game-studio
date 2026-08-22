@@ -1,12 +1,14 @@
 /** Native DSH hooks for commit/push safeguards and deduplicated rule reminders. */
 
+import { randomUUID } from 'node:crypto'
 import { rulesForFiles } from '../registry/agents.js'
 import { logDecision, logIssue, readActiveTask } from '../state/index.js'
 import { resolveAgentCwd } from '../runtime.js'
 
-const injectedRules = new Map()
-
 export function registerHooks(ctx) {
+  // 去重集随注册闭包存活：插件卸载（scope dispose 解绑 handlers）后随之可回收，
+  // 不再以模块级 Map 形式跨加载周期泄漏。
+  const injectedRules = new Map()
   ctx.on?.('tools/pre-execute', (exec, next) => {
     if (exec?.name !== 'bash') return next()
     const cmd = String(exec.arguments?.command || '')
@@ -38,7 +40,12 @@ export function registerHooks(ctx) {
       if (rules.length) {
         for (const rule of rules) seen.add(rule)
         logDecision(cwd, 'hook/asset-rule-hit', { file, rules })
+        // 契约：inject(message: UserMessage) 需要 id/role/content/source 四项
+        // （llm/src/message.ts:129-144）；inbox 以 id 去重，无 id 的并发 pending
+        // 会抛（agent/src/inbox.ts:213-217）。形状与 commands/index.js steerAgent 一致。
         exec.agent?.inject?.({
+          id: randomUUID(),
+          role: 'user',
           content: [{ type: 'text', text: `[game-studio] ${file} matches rules: ${rules.join(', ')}. Review them before committing.` }],
           source: { kind: 'plugin', plugin: 'dsh-game-studio' },
         })

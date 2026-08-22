@@ -23,7 +23,7 @@ plan.
 
 ## Phase 1: Parse Scope
 
-**Argument:** `$ARGUMENTS` (blank = ask user via 通过宿主 ask 机制向用户提问)
+**Argument:** `$ARGUMENTS` (blank = ask user via the host's ask/question mechanism)
 
 Determine scope from the argument:
 
@@ -35,7 +35,7 @@ Determine scope from the argument:
   to stories whose file path or title contains the system name. Also check the
   epic index file (`EPIC.md`) in that system's directory.
 - **`story: [path]`** — validate that the path exists and load that single file.
-- **No argument** — use `通过宿主 ask 机制向用户提问`:
+- **No argument** — use `the host's ask/question mechanism`:
   - "What is the scope for this QA plan?"
   - Options: "Current sprint", "Specific feature (enter system name)",
     "Specific story (enter path)", "Full epic"
@@ -228,7 +228,7 @@ test entry should reflect the real requirements of these specific stories.
 ## Phase 5: Write Output
 
 Show the complete plan in conversation (or a summary if the plan is very long),
-then ask two questions together using `通过宿主 ask 机制向用户提问`:
+then ask two questions together using `the host's ask/question mechanism`:
 
 ```
 question: "Ready to write the QA plan. Choose output options:"
@@ -252,7 +252,7 @@ Next steps:
 - For Logic/Integration stories, create the test files at the listed paths
   before marking stories done — `/story-done` checks for them"
 
-Silently append to `.dsh/game-studio/state//active.md` (create the file if it does not exist):
+Silently append to `.dsh/game-studio/state/active.md` (create the file if it does not exist):
 
 ```
 <!-- QA-PLAN: [date] | System: [system/sprint identifier] | Plan written: production/qa/qa-plan-[identifier]-[date].md -->
@@ -270,6 +270,6 @@ Silently append to `.dsh/game-studio/state//active.md` (create the file if it do
   support. If a formula is absent from the GDD, flag it rather than guessing.
 - **Playtest requirements are advisory**: the user decides whether a playtest
   is warranted for borderline Visual/Feel stories. Flag the case; do not mandate.
-- Use `通过宿主 ask 机制向用户提问` for scope selection when no argument is provided.
+- Use `the host's ask/question mechanism` for scope selection when no argument is provided.
   Keep all other phases non-interactive — present findings, then ask once to
   approve the write.

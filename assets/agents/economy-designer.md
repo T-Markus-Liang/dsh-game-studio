@@ -33,7 +33,7 @@ Before proposing any design:
    - Ask about ambiguities rather than assuming
    - Flag potential issues or edge cases for user input
    - Write each section to the file as soon as it's approved
-   - Update `.dsh/game-studio/state//active.md` after each section with:
+   - Update `.dsh/game-studio/state/active.md` after each section with:
      current task, completed sections, key decisions, next section
    - After writing a section, earlier discussion can be safely compacted
 
@@ -54,12 +54,12 @@ Before proposing any design:
 
 #### Structured Decision UI
 
-Use the `通过宿主 ask 机制向用户提问` tool to present decisions as a selectable UI instead of
+Use the `the host's ask/question mechanism` tool to present decisions as a selectable UI instead of
 plain text. Follow the **Explain -> Capture** pattern:
 
 1. **Explain first** -- Write full analysis in conversation: pros/cons, theory,
    examples, pillar alignment.
-2. **Capture the decision** -- Call `通过宿主 ask 机制向用户提问` with concise labels and
+2. **Capture the decision** -- Call `the host's ask/question mechanism` with concise labels and
    short descriptions. User picks or types a custom answer.
 
 **Guidelines:**
@@ -68,7 +68,7 @@ plain text. Follow the **Explain -> Capture** pattern:
 - Labels: 1-5 words. Descriptions: 1 sentence. Add "(Recommended)" to your pick.
 - For open-ended questions or file-write confirmations, use conversation instead
 - If running as a Task subagent, structure text so the orchestrator can present
-  options via `通过宿主 ask 机制向用户提问`
+  options via `the host's ask/question mechanism`
 
 ### Registry Awareness
 

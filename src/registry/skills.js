@@ -68,11 +68,26 @@ export function parseFrontmatter(text) {
 }
 
 /**
+ * team-* 编排 skill 冻结策略（V0.1 默认 frozen）。
+ * @param {string} id — skill id
+ * @param {Object} [config]
+ * @param {'frozen'|'enabled'} [config.teamSkills] — 'enabled' 时 team-* 变为
+ *   modelInvocable:true；其他任何值（含缺省）保持 V0.1 冻结行为。
+ * @returns {boolean} modelInvocable
+ */
+export function skillModelInvocable(id, config = {}) {
+  if (!String(id).startsWith('team-')) return true
+  return config.teamSkills === 'enabled'
+}
+
+/**
  * 注册 skill provider（正确契约）。
  * @param {import('@deepseek-ai/cordis').Context} skillCtx
+ * @param {Object} [config] — 可选插件配置透传；lib/index.js 不传时保持 V0.1 行为（team-* frozen）。
+ * @param {'frozen'|'enabled'} [config.teamSkills] — team-* 编排 skill 冻结开关，默认 'frozen'。
  * @returns {() => void} disposer
  */
-export function registerSkillProvider(skillCtx) {
+export function registerSkillProvider(skillCtx, config = {}) {
   return skillCtx.skills.registerProvider(() => {
     const provider = 'game-studio'
     return {
@@ -85,7 +100,7 @@ export function registerSkillProvider(skillCtx) {
             name: id,
             description: fm.description || `DSH Game Studio skill: ${id}`,
             whenToUse: fm.whenToUse || '',
-            invocation: { modelInvocable: !id.startsWith('team-'), userInvocable: false },
+            invocation: { modelInvocable: skillModelInvocable(id, config), userInvocable: false },
             source: 'plugin',
             provider,
             rank: 200,
@@ -102,7 +117,7 @@ export function registerSkillProvider(skillCtx) {
           name: id,
           description: fm.description || '',
           whenToUse: fm.whenToUse || '',
-          invocation: { modelInvocable: true, userInvocable: false },
+          invocation: { modelInvocable: skillModelInvocable(id, config), userInvocable: false },
           source: 'plugin',
           provider,
           content: body,

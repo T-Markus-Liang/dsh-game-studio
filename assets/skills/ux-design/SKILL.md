@@ -18,7 +18,7 @@ Three authoring modes exist based on the argument:
 | Any other value (e.g., `main-menu`, `inventory`) | UX spec for a screen or flow | `design/ux/[argument].md` |
 | No argument | Ask the user | (see below) |
 
-**If no argument is provided**, do not fail — ask instead. Use `通过宿主 ask 机制向用户提问`:
+**If no argument is provided**, do not fail — ask instead. Use `the host's ask/question mechanism`:
 - "What are we designing today?"
   - Options: "A specific screen or flow (I'll name it)", "The game HUD", "The interaction pattern library", "I'm not sure — help me figure it out"
 
@@ -393,7 +393,7 @@ Ask: "May I create the skeleton file at `design/ux/[filename].md`?"
 
 ---
 
-After writing the skeleton, update `.dsh/game-studio/state//active.md` with:
+After writing the skeleton, update `.dsh/game-studio/state/active.md` with:
 - Task: Designing [screen/flow name] UX spec
 - Current section: Starting (skeleton created)
 - File: design/ux/[filename].md
@@ -410,22 +410,22 @@ Context  ->  Questions  ->  Options  ->  Decision  ->  Draft  ->  Approval  ->  
 
 1. **Context**: State what this section needs to contain and surface any relevant
    constraints from context gathered in Phase 2.
-2. **Questions**: Ask what is needed to draft this section. Use `通过宿主 ask 机制向用户提问`
+2. **Questions**: Ask what is needed to draft this section. Use `the host's ask/question mechanism`
    for constrained choices, conversational text for open-ended exploration.
 3. **Options**: Where design choices exist, present 2-4 approaches with pros/cons.
-   Explain reasoning in conversation, then use `通过宿主 ask 机制向用户提问` to capture the decision.
+   Explain reasoning in conversation, then use `the host's ask/question mechanism` to capture the decision.
 4. **Decision**: User picks an approach or provides custom direction.
 5. **Draft**: Write the section content in conversation for review. Flag provisional
    assumptions explicitly.
-6. **Approval**: Use `通过宿主 ask 机制向用户提问`:
+6. **Approval**: Use `the host's ask/question mechanism`:
    - "Does this capture the [section name] correctly?"
    - Options: "Yes — write it to the file", "Small changes needed (describe below)", "Major rethink needed"
    Do not proceed to step 7 until the user selects "Yes".
-7. **Write**: Use `通过宿主 ask 机制向用户提问`: "May I write the [section name] section to `[filepath]`?"
+7. **Write**: Use `the host's ask/question mechanism`: "May I write the [section name] section to `[filepath]`?"
    - Options: "Yes, write it", "Wait — one more change"
    Once confirmed, use `Edit` to replace the `[To be designed]` placeholder with approved content.
 
-After writing each section, update `.dsh/game-studio/state//active.md`.
+After writing each section, update `.dsh/game-studio/state/active.md`.
 
 ---
 
@@ -506,7 +506,7 @@ This is the largest and most interactive section. Work through it in sub-section
   area, action bar, sidebar, etc.).
 - Offer 2-3 zone arrangements with rationale for each. Reference platform and
   input context gathered from game concept.
-- Use `通过宿主 ask 机制向用户提问` to capture the choice:
+- Use `the host's ask/question mechanism` to capture the choice:
   - "Which zone arrangement fits best?"
   - Options: [the 2-3 named arrangements you just presented] + "None — build a custom arrangement"
 
@@ -520,7 +520,7 @@ This is the largest and most interactive section. Work through it in sub-section
 
 **Sub-section 4 — ASCII Wireframe**:
 - Offer to generate an ASCII wireframe based on the zone layout and component list.
-- Use `通过宿主 ask 机制向用户提问`: "Want an ASCII wireframe as part of this spec?"
+- Use `the host's ask/question mechanism`: "Want an ASCII wireframe as part of this spec?"
   - Options: "Yes, include one", "No, I'll attach a separate file"
 - If yes, produce the wireframe in conversation first. Ask for feedback before
   writing it to file.
@@ -679,7 +679,7 @@ Write at least 5 specific, testable criteria that a QA tester can verify without
 - 1 accessibility criterion (per committed tier)
 - 1 criterion specific to this screen's core purpose
 
-Use `通过宿主 ask 机制向用户提问` to confirm:
+Use `the host's ask/question mechanism` to confirm:
 - "Do these acceptance criteria cover what would make this screen 'done' for your QA process?"
 - Options: "Yes — these are solid", "Add one more criterion", "Remove or rephrase one"
 
@@ -725,7 +725,7 @@ For each item, ask the user to categorize it:
 | **On Demand** | Player must actively request it (toggle, hold button) |
 | **Hidden** | Communicated through world/audio, never on-screen text |
 
-Use `通过宿主 ask 机制向用户提问` to step through items in groups of 3-4, not all at once.
+Use `the host's ask/question mechanism` to step through items in groups of 3-4, not all at once.
 This is the most consequential design decision in the HUD — do not rush it.
 
 **Conflict check**: If the information philosophy (Section A) says "nearly HUD-free"
@@ -821,7 +821,7 @@ For each pattern (existing or new), document:
 **Reference**: [Screenshot path or ASCII example, if available]
 ```
 
-Work through patterns in groups. Use `通过宿主 ask 机制向用户提问`:
+Work through patterns in groups. Use `the host's ask/question mechanism`:
 - "How do you want to work through these patterns?"
 - Options: "Draft the first batch from existing specs (faster)", "Define them one by one (more control)", "Start with the most-used pattern first"
 
@@ -849,7 +849,7 @@ this screen have a corresponding element in this spec? Present any gaps.
 **2. Pattern library alignment**: Are all interaction patterns used in this spec
 referenced by name? If a new pattern was invented during this spec session, flag
 it for addition to the pattern library:
-Use `通过宿主 ask 机制向用户提问`:
+Use `the host's ask/question mechanism`:
 - "This spec uses [pattern name], which isn't in the pattern library yet. What should we do?"
 - Options: "Add it to the pattern library now", "Flag it as a gap and continue", "Skip — this pattern is one-off"
 
@@ -878,7 +878,7 @@ When all sections are approved and written:
 
 ### 6a: Update Session State
 
-Update `.dsh/game-studio/state//active.md` with:
+Update `.dsh/game-studio/state/active.md` with:
 - Task: [screen-name] UX spec
 - Status: Complete (or In Review)
 - File: design/ux/[filename].md
@@ -893,7 +893,7 @@ Before presenting options, state clearly:
 > implementation pipeline. The Pre-Production gate requires all key screen specs
 > to have a review verdict."
 
-Then use `通过宿主 ask 机制向用户提问`:
+Then use `the host's ask/question mechanism`:
 - "Run `/ux-review [filename]` now, or do something else first?"
   - Options:
     - "Run `/ux-review` now — validate this spec"
@@ -915,7 +915,7 @@ this spec. Do not edit those files without asking — just name them.
 
 If the session is interrupted (compaction, crash, new session):
 
-1. Read `.dsh/game-studio/state//active.md` — it records the current screen
+1. Read `.dsh/game-studio/state/active.md` — it records the current screen
    and which sections are complete.
 2. Read `design/ux/[filename].md` — sections with real content are done;
    sections with `[To be designed]` still need work.
@@ -939,7 +939,7 @@ specific sub-topics, additional context or coordination may be needed:
 | Narrative/lore visible in the UI | `narrative-director` — for flavor text, item names, lore panels |
 | Accessibility tier decisions | Handled by this session — owned by ux-designer |
 
-When delegating to another agent via the Task tool:
+When delegating to another agent via the subagent tool:
 - Provide: screen name, game concept summary, the specific question needing expert input
 - The agent returns analysis to this session
 - This session presents the agent's output to the user
@@ -953,7 +953,7 @@ When delegating to another agent via the Task tool:
 This skill follows the collaborative design principle at every step:
 
 1. **Question -> Options -> Decision -> Draft -> Approval** for every section
-2. **通过宿主 ask 机制向用户提问** at every decision point (Explain -> Capture pattern):
+2. **the host's ask/question mechanism** at every decision point (Explain -> Capture pattern):
    - Phase 2: "Ready to start, or need more context?"
    - Phase 3: "May I create the skeleton?"
    - Phase 4 (each section): design questions, approach options, draft approval

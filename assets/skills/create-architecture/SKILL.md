@@ -115,7 +115,7 @@ Post-Cutoff Versions: [list]
 - [GDD system name] → [domain] → [risk level]
 ```
 
-Use `通过宿主 ask 机制向用户提问`:
+Use `the host's ask/question mechanism`:
 - Prompt: "One or more engine domains are HIGH RISK — the LLM's knowledge may be unreliable for these areas. Architectural recommendations in these domains should be cross-referenced with the engine docs before being acted on. How would you like to proceed?"
 - Options:
   - `[A] Proceed — flag HIGH RISK domains throughout the output`
@@ -288,7 +288,7 @@ but don't yet. Group by priority:
 Once all sections are approved, write the complete document to
 `docs/architecture/architecture.md`.
 
-Display a one-paragraph summary of what the document will contain (layers, modules, data flows, ADR gaps). Then use `通过宿主 ask 机制向用户提问`:
+Display a one-paragraph summary of what the document will contain (layers, modules, data flows, ADR gaps). Then use `the host's ask/question mechanism`:
 - "All sections approved. May I write the master architecture document?"
   - [A] Yes — write to `docs/architecture/architecture.md` now
   - [B] Show me the full draft inline first, then ask again
@@ -358,7 +358,7 @@ Pass: architecture document path, technical requirements baseline summary, ADR l
 
 Show the Technical Director assessment and Lead Programmer verdict side by side.
 
-Use `通过宿主 ask 机制向用户提问` — "Technical Director and Lead Programmer have reviewed the architecture. How would you like to proceed?"
+Use `the host's ask/question mechanism` — "Technical Director and Lead Programmer have reviewed the architecture. How would you like to proceed?"
 Options: `Accept — proceed to handoff` / `Revise flagged items first` / `Discuss specific concerns`
 
 **Step 4 — Record sign-off in the architecture document:**
@@ -369,7 +369,7 @@ Update the Document Status section:
 - Lead Programmer Feasibility: FEASIBLE / CONCERNS ACCEPTED / REVISED
 ```
 
-Show the proposed Document Status block inline, then use `通过宿主 ask 机制向用户提问`:
+Show the proposed Document Status block inline, then use `the host's ask/question mechanism`:
 - "May I update the Document Status section with the sign-off results?"
   - [A] Yes — apply to `docs/architecture/architecture.md`
   - [B] Not yet — I want to revisit the concerns first
@@ -378,7 +378,7 @@ Show the proposed Document Status block inline, then use `通过宿主 ask 机�
 
 ## Phase 8: Handoff
 
-**Step 1 — Update session state**: Write a summary to `.dsh/game-studio/state//active.md` covering: artifact written, TD/LP sign-off verdicts, any blockers, required ADRs remaining, and next step.
+**Step 1 — Update session state**: Write a summary to `.dsh/game-studio/state/active.md` covering: artifact written, TD/LP sign-off verdicts, any blockers, required ADRs remaining, and next step.
 
 **Step 2 — Output the handoff** using exactly this template (no freeform prose, no rephrasing of section titles):
 
@@ -443,7 +443,7 @@ This skill follows the collaborative design principle at every phase:
 3. **Ask before deciding** — present options for each architectural choice
 4. **Draft before approval** — show the content inline before asking to write it.
    Never ask approval for a section the user has not yet seen.
-5. **Use `通过宿主 ask 机制向用户提问` for write approvals** — plain text "May I?" is not
+5. **Use `the host's ask/question mechanism` for write approvals** — plain text "May I?" is not
    sufficient. Use the structured tool with labeled options [A]/[B]/[C] (write now /
    show full draft first / not yet). For multi-file changesets, list every file
    and what changes, then ask once grouped — not separate plain-text asks per file.

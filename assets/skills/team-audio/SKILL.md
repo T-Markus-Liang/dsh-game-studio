@@ -6,11 +6,11 @@ user-invocable: false
 ---
 
 If no argument is provided, output usage guidance and exit without spawning any agents:
-> Usage: `/team-audio [feature or area]` — specify the feature or area to design audio for (e.g., `combat`, `main menu`, `forest biome`, `boss encounter`). Do not use `通过宿主 ask 机制向用户提问` here; output the guidance directly.
+> Usage: `/team-audio [feature or area]` — specify the feature or area to design audio for (e.g., `combat`, `main menu`, `forest biome`, `boss encounter`). Do not use `the host's ask/question mechanism` here; output the guidance directly.
 
 When this skill is invoked with an argument, orchestrate the audio team through a structured pipeline.
 
-**Decision Points:** At each step transition, use `通过宿主 ask 机制向用户提问` to present
+**Decision Points:** At each step transition, use `the host's ask/question mechanism` to present
 the user with the subagent's proposals as selectable options. Write the agent's
 full analysis in conversation, then capture the decision with concise labels.
 The user must approve before moving to the next step.
@@ -39,7 +39,7 @@ Store the resolved mode for use in all subsequent phases.
 
 ## How to Delegate
 
-Use the Task tool to spawn each team member as a subagent:
+Delegate via the subagent tool to spawn each team member as a subagent:
 - `subagent_type: audio-director` — Sonic identity, emotional tone, audio palette
 - `subagent_type: sound-designer` — SFX specifications, audio events, mixing groups
 - `subagent_type: technical-artist` — Audio middleware, bus structure, memory budgets
@@ -130,7 +130,7 @@ If any spawned agent (via Task) returns BLOCKED, errors, or cannot complete:
 
 1. **Surface immediately**: Report "[AgentName]: BLOCKED — [reason]" to the user before continuing to dependent phases
 2. **Assess dependencies**: Check whether the blocked agent's output is required by subsequent phases. If yes, do not proceed past that dependency point without user input.
-3. **Offer options** via 通过宿主 ask 机制向用户提问 with choices:
+3. **Offer options** via the host's ask/question mechanism with choices:
    - Skip this agent and note the gap in the final report
    - Retry with narrower scope
    - Stop here and resolve the blocker first

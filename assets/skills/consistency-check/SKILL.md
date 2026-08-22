@@ -276,13 +276,13 @@ Then append the new conflict entries. Never skip logging — a missing file is n
 
 ## Phase 7: Session State and Closing
 
-Silently append to `.dsh/game-studio/state//active.md` (create the file if it does not exist):
+Silently append to `.dsh/game-studio/state/active.md` (create the file if it does not exist):
 
 ```
 <!-- CONSISTENCY-CHECK: [date] | GDDs checked: [N] | Conflicts found: [N] | Report: docs/consistency-report-[date].md -->
 ```
 
-Then close with an `通过宿主 ask 机制向用户提问` widget:
+Then close with an `the host's ask/question mechanism` widget:
 
 - **Prompt**: "Consistency check complete — [N] conflicts found. What next?"
 - **Options**:

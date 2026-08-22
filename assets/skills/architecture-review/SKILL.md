@@ -368,7 +368,7 @@ are consistent with verified engine behaviour."
 
 Before asking, display the proposed change inline — show the current systems-index row for each flagged GDD and the proposed updated row side by side so the user can see exactly what will change.
 
-Then use `通过宿主 ask 机制向用户提问`:
+Then use `the host's ask/question mechanism`:
 - "I found [N] GDD revision flag(s). May I update the systems index?"
   - [A] Yes — apply all [N] updates to the systems index now
   - [B] Show me the full diff first, then ask again
@@ -376,7 +376,7 @@ Then use `通过宿主 ask 机制向用户提问`:
 
 If [A]: apply the updates. Status field must be exactly `Needs Revision` — no parentheticals
 (other skills match that exact string and parentheticals break the match).
-If [B]: display the complete proposed systems-index section, then re-ask with `通过宿主 ask 机制向用户提问`.
+If [B]: display the complete proposed systems-index section, then re-ask with `the host's ask/question mechanism`.
 
 ---
 
@@ -453,7 +453,7 @@ FAIL: Critical gaps (Foundation/Core layer requirements uncovered),
 
 ## Phase 8: Write and Update Traceability Index
 
-Use `通过宿主 ask 机制向用户提问` for the write approval:
+Use `the host's ask/question mechanism` for the write approval:
 - "Review complete. What would you like to write?"
   - [A] Write all three files (review report + traceability index + TR registry)
   - [B] Write review report only — `docs/architecture/architecture-review-[date].md`
@@ -461,7 +461,7 @@ Use `通过宿主 ask 机制向用户提问` for the write approval:
 
 ### RTM Output (rtm mode only)
 
-For `rtm` mode, use `通过宿主 ask 机制向用户提问`:
+For `rtm` mode, use `the host's ask/question mechanism`:
 - "May I write the full Requirements Traceability Matrix?"
   - [A] Yes — write to `docs/architecture/requirements-traceability.md`
   - [B] Not yet — show me the full RTM data first, then ask again
@@ -560,7 +560,7 @@ append when it already exists.
 ### Session State Update
 
 After writing all approved files, silently append to
-`.dsh/game-studio/state//active.md`:
+`.dsh/game-studio/state/active.md`:
 
     ## Session Extract — /architecture-review [date]
     - Verdict: [PASS / CONCERNS / FAIL]
@@ -614,7 +614,7 @@ After completing the review and writing approved files, present:
 3. **Rerun trigger**: "Re-run `/architecture-review` after each new ADR is written
    to verify coverage improves"
 
-Then close with `通过宿主 ask 机制向用户提问` tailored to the pre-gate checklist state:
+Then close with `the host's ask/question mechanism` tailored to the pre-gate checklist state:
 - If ADR gaps remain or any pre-gate item is ❌:
   - "Architecture review complete. What would you like to do next?"
     - [A] Write a missing ADR — open a fresh session and run `/architecture-decision [system]`
@@ -635,7 +635,7 @@ If any spawned agent returns BLOCKED, errors, or fails to complete:
 
 1. **Surface immediately**: Report "[AgentName]: BLOCKED — [reason]" before continuing
 2. **Assess dependencies**: If the blocked agent's output is required by a later phase, do not proceed past that phase without user input
-3. **Offer options** via 通过宿主 ask 机制向用户提问 with three choices:
+3. **Offer options** via the host's ask/question mechanism with three choices:
    - Skip this agent and note the gap in the final report
    - Retry with narrower scope (fewer GDDs, single-system focus)
    - Stop here and resolve the blocker first
@@ -653,7 +653,7 @@ If any spawned agent returns BLOCKED, errors, or fails to complete:
 4. **Draft before approval** — always show the content that will be written (the
    report, the updated ADR section, the systems-index row) inline in the conversation
    before requesting approval. Never ask to write something the user has not yet seen.
-5. **Use `通过宿主 ask 机制向用户提问` for write approvals** — plain text "May I?" is not
+5. **Use `the host's ask/question mechanism` for write approvals** — plain text "May I?" is not
    sufficient. Use the structured tool with labeled options [A]/[B]/[C] so the
    user can choose between "write now", "show full draft first", and "not yet".
    Multi-file changesets must list every file and what changes, then ask once

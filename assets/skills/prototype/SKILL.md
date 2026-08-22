@@ -33,7 +33,7 @@ Resolve the review mode (once, store for all gate spawns this run):
 **Check for spike mode:** If `--spike` was passed, skip to the **Spike Mode** section
 at the bottom of this skill.
 
-Otherwise, use `通过宿主 ask 机制向用户提问` to confirm intent before proceeding:
+Otherwise, use `the host's ask/question mechanism` to confirm intent before proceeding:
 
 - **Prompt**: "How would you like to use this prototype session?"
 - **Options**:
@@ -221,7 +221,7 @@ the player feels something? If it takes more than 3-4 exchanges, the opening is 
 
 ---
 
-Assess which path best fits the hypothesis, then use `通过宿主 ask 机制向用户提问` with your
+Assess which path best fits the hypothesis, then use `the host's ask/question mechanism` with your
 recommendation pre-stated:
 
 - **Prompt**: "Which prototype path would you like to use? (Based on your concept, I'd recommend [path] — [one sentence reason].)"
@@ -246,8 +246,8 @@ If scope covers more than one mechanic, cut it down. When in doubt, cut more.
 
 Present this plan to the user before building. Get confirmation before proceeding.
 
-Once confirmed, write a session checkpoint to `.dsh/game-studio/state//active.md`
-(create `.dsh/game-studio/state//` if it does not exist). Include: concept name,
+Once confirmed, write a session checkpoint to `.dsh/game-studio/state/active.md`
+(create `.dsh/game-studio/state/` if it does not exist). Include: concept name,
 hypothesis, path chosen, scope bullet points, and current phase ("Phase 5 —
 Implement"). This lets the next session resume without starting over if the session
 ends mid-build — especially important for multi-day Engine path work.
@@ -515,7 +515,7 @@ gate implications. Hard cap: ~4 hours.
 
 1. **Define the spike question** (plain text, not a widget): "What specific question does this spike answer? Give me one sentence: 'Can we [do X] using [approach Y]?'"
 
-2. **Choose path** — same 通过宿主 ask 机制向用户提问 widget as Phase 3 (HTML / Engine / Paper).
+2. **Choose path** — same the host's ask/question mechanism widget as Phase 3 (HTML / Engine / Paper).
 
 3. **Scope** — maximum 2-3 bullet points. One mechanic, one technical question, nothing else.
 
@@ -528,7 +528,7 @@ gate implications. Hard cap: ~4 hours.
    - Result (YES it works / NO it doesn't / PARTIAL — needs more investigation)
    - What to do next (add to current sprint / investigate further / abandon the idea)
 
-7. **Update `.dsh/game-studio/state//active.md`** to clear the spike and return to the current sprint state.
+7. **Update `.dsh/game-studio/state/active.md`** to clear the spike and return to the current sprint state.
 
 **No CD gate. No phase gate. No PROCEED/PIVOT/KILL.** Spike results inform decisions; they don't make them. The developer decides whether to add the mechanic/approach to the sprint backlog based on what the spike revealed.
 

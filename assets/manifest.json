@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-21T16:46:23.835Z",
+  "generatedAt": "2026-08-22T01:15:40.251Z",
   "source": {
     "path": "/tmp/ccgs-source",
     "commit": "984023ddac0d5e27624f2baacde6105e45de375f"
@@ -9,7 +9,8 @@
     "agents": 49,
     "skills": 73,
     "rules": 11,
-    "templates": 40
+    "templates": 40,
+    "docs": 63
   },
   "agents": [
     {
@@ -23,7 +24,7 @@
       ],
       "modelTier": "A",
       "toolProfile": "coder",
-      "summary": "The Accessibility Specialist ensures the game is playable by the widest possible",
+      "summary": "The Accessibility Specialist ensures the game is playable by the widest possible audience. They enforce accessibility",
       "file": "agents/accessibility-specialist.md"
     },
     {
@@ -37,7 +38,7 @@
       ],
       "modelTier": "A",
       "toolProfile": "coder",
-      "summary": "The AI Programmer implements game AI systems: behavior trees, state machines, pa",
+      "summary": "The AI Programmer implements game AI systems: behavior trees, state machines, pathfinding, perception systems",
       "file": "agents/ai-programmer.md"
     },
     {
@@ -51,7 +52,7 @@
       ],
       "modelTier": "A",
       "toolProfile": "coder",
-      "summary": "The Analytics Engineer designs telemetry systems, player behavior tracking, A/B ",
+      "summary": "The Analytics Engineer designs telemetry systems, player behavior tracking, A/B test frameworks, and data analysis",
       "file": "agents/analytics-engineer.md"
     },
     {
@@ -63,7 +64,7 @@
       "subsystems": [],
       "modelTier": "S",
       "toolProfile": "reviewer",
-      "summary": "The Art Director owns the visual identity of the game: style guides, art bible, ",
+      "summary": "The Art Director owns the visual identity of the game: style guides, art bible, asset standards, color palettes, UI/UX",
       "file": "agents/art-director.md"
     },
     {
@@ -77,7 +78,7 @@
       ],
       "modelTier": "S",
       "toolProfile": "reviewer",
-      "summary": "The Audio Director owns the sonic identity of the game: music direction, sound d",
+      "summary": "The Audio Director owns the sonic identity of the game: music direction, sound design philosophy, audio implementation",
       "file": "agents/audio-director.md"
     },
     {
@@ -93,7 +94,7 @@
       ],
       "modelTier": "A",
       "toolProfile": "coder",
-      "summary": "The community manager owns player-facing communication: patch notes, social medi",
+      "summary": "The community manager owns player-facing communication: patch notes, social media posts, community updates, player",
       "file": "agents/community-manager.md"
     },
     {
@@ -105,7 +106,7 @@
       "subsystems": [],
       "modelTier": "S",
       "toolProfile": "reviewer",
-      "summary": "The Creative Director is the highest-level creative authority for the project. T",
+      "summary": "The Creative Director is the highest-level creative authority for the project. This agent makes binding decisions on",
       "file": "agents/creative-director.md"
     },
     {
@@ -117,7 +118,7 @@
       "subsystems": [],
       "modelTier": "A",
       "toolProfile": "coder",
-      "summary": "The DevOps Engineer maintains build pipelines, CI/CD configuration, version cont",
+      "summary": "The DevOps Engineer maintains build pipelines, CI/CD configuration, version control workflow, and deployment",
       "file": "agents/devops-engineer.md"
     },
     {
@@ -131,7 +132,7 @@
       ],
       "modelTier": "A",
       "toolProfile": "designer",
-      "summary": "The Economy Designer specializes in resource economies, loot systems, progressio",
+      "summary": "The Economy Designer specializes in resource economies, loot systems, progression curves, and in-game market design. Use",
       "file": "agents/economy-designer.md"
     },
     {
@@ -145,7 +146,7 @@
       ],
       "modelTier": "A",
       "toolProfile": "coder",
-      "summary": "The Engine Programmer works on core engine systems: rendering pipeline, physics,",
+      "summary": "The Engine Programmer works on core engine systems: rendering pipeline, physics, memory management, resource loading",
       "file": "agents/engine-programmer.md"
     },
     {
@@ -159,7 +160,7 @@
       ],
       "modelTier": "A",
       "toolProfile": "designer",
-      "summary": "The Game Designer owns the mechanical and systems design of the game. This agent",
+      "summary": "The Game Designer owns the mechanical and systems design of the game. This agent designs core loops, progression",
       "file": "agents/game-designer.md"
     },
     {
@@ -173,7 +174,7 @@
       ],
       "modelTier": "A",
       "toolProfile": "coder",
-      "summary": "The Gameplay Programmer implements game mechanics, player systems, combat, and i",
+      "summary": "The Gameplay Programmer implements game mechanics, player systems, combat, and interactive features as code. Use this",
       "file": "agents/gameplay-programmer.md"
     },
     {
@@ -189,7 +190,7 @@
       ],
       "modelTier": "A",
       "toolProfile": "coder",
-      "summary": "The Godot C# specialist owns all C# code quality in Godot 4 projects: .NET patte",
+      "summary": "The Godot C# specialist owns all C# code quality in Godot 4 projects: .NET patterns, attribute-based exports, signal",
       "file": "agents/godot-csharp-specialist.md"
     },
     {
@@ -205,7 +206,7 @@
       ],
       "modelTier": "A",
       "toolProfile": "coder",
-      "summary": "The GDExtension specialist owns all native code integration with Godot: GDExtens",
+      "summary": "The GDExtension specialist owns all native code integration with Godot: GDExtension API, C/C++/Rust bindings (godot-cpp",
       "file": "agents/godot-gdextension-specialist.md"
     },
     {
@@ -221,7 +222,7 @@
       ],
       "modelTier": "A",
       "toolProfile": "coder",
-      "summary": "The GDScript specialist owns all GDScript code quality: static typing enforcemen",
+      "summary": "The GDScript specialist owns all GDScript code quality: static typing enforcement, design patterns, signal architecture",
       "file": "agents/godot-gdscript-specialist.md"
     },
     {
@@ -237,7 +238,7 @@
       ],
       "modelTier": "A",
       "toolProfile": "coder",
-      "summary": "The Godot Shader specialist owns all Godot rendering customization: Godot shadin",
+      "summary": "The Godot Shader specialist owns all Godot rendering customization: Godot shading language, visual shaders, material",
       "file": "agents/godot-shader-specialist.md"
     },
     {
@@ -251,7 +252,7 @@
       "subsystems": [],
       "modelTier": "A",
       "toolProfile": "coder",
-      "summary": "The Godot Engine Specialist is the authority on all Godot-specific patterns, API",
+      "summary": "The Godot Engine Specialist is the authority on all Godot-specific patterns, APIs, and optimization techniques. They",
       "file": "agents/godot-specialist.md"
     },
     {
@@ -263,7 +264,7 @@
       "subsystems": [],
       "modelTier": "S",
       "toolProfile": "reviewer",
-      "summary": "The Lead Programmer owns code-level architecture, coding standards, code review,",
+      "summary": "The Lead Programmer owns code-level architecture, coding standards, code review, and the assignment of programming work",
       "file": "agents/lead-programmer.md"
     },
     {
@@ -277,7 +278,7 @@
       ],
       "modelTier": "A",
       "toolProfile": "designer",
-      "summary": "The Level Designer creates spatial designs, encounter layouts, pacing plans, and",
+      "summary": "The Level Designer creates spatial designs, encounter layouts, pacing plans, and environmental storytelling guides for",
       "file": "agents/level-designer.md"
     },
     {
@@ -291,7 +292,7 @@
       ],
       "modelTier": "A",
       "toolProfile": "designer",
-      "summary": "The live-ops designer owns post-launch content strategy: seasonal events, battle",
+      "summary": "The live-ops designer owns post-launch content strategy: seasonal events, battle passes, content cadence, player",
       "file": "agents/live-ops-designer.md"
     },
     {
@@ -305,7 +306,7 @@
       ],
       "modelTier": "S",
       "toolProfile": "reviewer",
-      "summary": "Owns internationalization architecture, string management, locale testing, and t",
+      "summary": "Owns internationalization architecture, string management, locale testing, and translation pipeline. Use for i18n system",
       "file": "agents/localization-lead.md"
     },
     {
@@ -319,7 +320,7 @@
       ],
       "modelTier": "S",
       "toolProfile": "reviewer",
-      "summary": "The Narrative Director owns story architecture, world-building, character design",
+      "summary": "The Narrative Director owns story architecture, world-building, character design, and dialogue strategy. Use this agent",
       "file": "agents/narrative-director.md"
     },
     {
@@ -333,7 +334,7 @@
       ],
       "modelTier": "A",
       "toolProfile": "coder",
-      "summary": "The Network Programmer implements multiplayer networking: state replication, lag",
+      "summary": "The Network Programmer implements multiplayer networking: state replication, lag compensation, matchmaking, and network",
       "file": "agents/network-programmer.md"
     },
     {
@@ -347,7 +348,7 @@
       ],
       "modelTier": "A",
       "toolProfile": "analyst",
-      "summary": "The Performance Analyst profiles game performance, identifies bottlenecks, recom",
+      "summary": "The Performance Analyst profiles game performance, identifies bottlenecks, recommends optimizations, and tracks",
       "file": "agents/performance-analyst.md"
     },
     {
@@ -359,7 +360,7 @@
       "subsystems": [],
       "modelTier": "S",
       "toolProfile": "reviewer",
-      "summary": "The Producer manages all production concerns: sprint planning, milestone trackin",
+      "summary": "The Producer manages all production concerns: sprint planning, milestone tracking, risk management, scope negotiation",
       "file": "agents/producer.md"
     },
     {
@@ -373,7 +374,7 @@
       ],
       "modelTier": "A",
       "toolProfile": "coder",
-      "summary": "Prototyping specialist. Builds throwaway implementations at two points in the wo",
+      "summary": "Prototyping specialist. Builds throwaway implementations at two points in the workflow: (1) concept prototypes right",
       "file": "agents/prototyper.md"
     },
     {
@@ -385,7 +386,7 @@
       "subsystems": [],
       "modelTier": "S",
       "toolProfile": "reviewer",
-      "summary": "The QA Lead owns test strategy, bug triage, release quality gates, and testing p",
+      "summary": "The QA Lead owns test strategy, bug triage, release quality gates, and testing process design. Use this agent for test",
       "file": "agents/qa-lead.md"
     },
     {
@@ -399,7 +400,7 @@
       ],
       "modelTier": "A",
       "toolProfile": "analyst",
-      "summary": "The QA Tester writes detailed test cases, bug reports, and test checklists. Use ",
+      "summary": "The QA Tester writes detailed test cases, bug reports, and test checklists. Use this agent for test case generation",
       "file": "agents/qa-tester.md"
     },
     {
@@ -411,7 +412,7 @@
       "subsystems": [],
       "modelTier": "S",
       "toolProfile": "reviewer",
-      "summary": "Owns the release pipeline: certification checklists, store submissions, platform",
+      "summary": "Owns the release pipeline: certification checklists, store submissions, platform requirements, version numbering, and",
       "file": "agents/release-manager.md"
     },
     {
@@ -425,7 +426,7 @@
       ],
       "modelTier": "A",
       "toolProfile": "coder",
-      "summary": "The Security Engineer protects the game from cheating, exploits, and data breach",
+      "summary": "The Security Engineer protects the game from cheating, exploits, and data breaches. They review code for",
       "file": "agents/security-engineer.md"
     },
     {
@@ -439,7 +440,7 @@
       ],
       "modelTier": "A",
       "toolProfile": "designer",
-      "summary": "The Sound Designer creates detailed specifications for sound effects, documents ",
+      "summary": "The Sound Designer creates detailed specifications for sound effects, documents audio events, and defines mixing",
       "file": "agents/sound-designer.md"
     },
     {
@@ -453,7 +454,7 @@
       ],
       "modelTier": "A",
       "toolProfile": "designer",
-      "summary": "The Systems Designer creates detailed mechanical designs for specific game subsy",
+      "summary": "The Systems Designer creates detailed mechanical designs for specific game subsystems -- combat formulas, progression",
       "file": "agents/systems-designer.md"
     },
     {
@@ -465,7 +466,7 @@
       "subsystems": [],
       "modelTier": "A",
       "toolProfile": "coder",
-      "summary": "The Technical Artist bridges art and engineering: shaders, VFX, rendering optimi",
+      "summary": "The Technical Artist bridges art and engineering: shaders, VFX, rendering optimization, art pipeline tools, and",
       "file": "agents/technical-artist.md"
     },
     {
@@ -477,7 +478,7 @@
       "subsystems": [],
       "modelTier": "S",
       "toolProfile": "reviewer",
-      "summary": "The Technical Director owns all high-level technical decisions including engine ",
+      "summary": "The Technical Director owns all high-level technical decisions including engine architecture, technology choices",
       "file": "agents/technical-director.md"
     },
     {
@@ -491,7 +492,7 @@
       ],
       "modelTier": "A",
       "toolProfile": "coder",
-      "summary": "The Tools Programmer builds internal development tools: editor extensions, conte",
+      "summary": "The Tools Programmer builds internal development tools: editor extensions, content authoring tools, debug utilities, and",
       "file": "agents/tools-programmer.md"
     },
     {
@@ -507,7 +508,7 @@
       ],
       "modelTier": "A",
       "toolProfile": "coder",
-      "summary": "The Blueprint specialist owns Blueprint architecture decisions, Blueprint/C++ bo",
+      "summary": "The Blueprint specialist owns Blueprint architecture decisions, Blueprint/C++ boundary guidelines, Blueprint",
       "file": "agents/ue-blueprint-specialist.md"
     },
     {
@@ -523,7 +524,7 @@
       ],
       "modelTier": "A",
       "toolProfile": "coder",
-      "summary": "The Gameplay Ability System specialist owns all GAS implementation: abilities, g",
+      "summary": "The Gameplay Ability System specialist owns all GAS implementation: abilities, gameplay effects, attribute sets",
       "file": "agents/ue-gas-specialist.md"
     },
     {
@@ -539,7 +540,7 @@
       ],
       "modelTier": "A",
       "toolProfile": "coder",
-      "summary": "The UE Replication specialist owns all Unreal networking: property replication, ",
+      "summary": "The UE Replication specialist owns all Unreal networking: property replication, RPCs, client prediction, relevancy, net",
       "file": "agents/ue-replication-specialist.md"
     },
     {
@@ -555,7 +556,7 @@
       ],
       "modelTier": "A",
       "toolProfile": "coder",
-      "summary": "The UMG/CommonUI specialist owns all Unreal UI implementation: widget hierarchy,",
+      "summary": "The UMG/CommonUI specialist owns all Unreal UI implementation: widget hierarchy, data binding, CommonUI input routing",
       "file": "agents/ue-umg-specialist.md"
     },
     {
@@ -569,7 +570,7 @@
       ],
       "modelTier": "A",
       "toolProfile": "coder",
-      "summary": "The UI Programmer implements user interface systems: menus, HUDs, inventory scre",
+      "summary": "The UI Programmer implements user interface systems: menus, HUDs, inventory screens, dialogue boxes, and UI framework",
       "file": "agents/ui-programmer.md"
     },
     {
@@ -585,7 +586,7 @@
       ],
       "modelTier": "A",
       "toolProfile": "coder",
-      "summary": "The Addressables specialist owns all Unity asset management: Addressable groups,",
+      "summary": "The Addressables specialist owns all Unity asset management: Addressable groups, asset loading/unloading, memory",
       "file": "agents/unity-addressables-specialist.md"
     },
     {
@@ -601,7 +602,7 @@
       ],
       "modelTier": "A",
       "toolProfile": "coder",
-      "summary": "The DOTS/ECS specialist owns all Unity Data-Oriented Technology Stack implementa",
+      "summary": "The DOTS/ECS specialist owns all Unity Data-Oriented Technology Stack implementation: Entity Component System",
       "file": "agents/unity-dots-specialist.md"
     },
     {
@@ -617,7 +618,7 @@
       ],
       "modelTier": "A",
       "toolProfile": "coder",
-      "summary": "The Unity Shader/VFX specialist owns all Unity rendering customization: Shader G",
+      "summary": "The Unity Shader/VFX specialist owns all Unity rendering customization: Shader Graph, custom HLSL shaders, VFX Graph",
       "file": "agents/unity-shader-specialist.md"
     },
     {
@@ -631,7 +632,7 @@
       "subsystems": [],
       "modelTier": "A",
       "toolProfile": "coder",
-      "summary": "The Unity Engine Specialist is the authority on all Unity-specific patterns, API",
+      "summary": "The Unity Engine Specialist is the authority on all Unity-specific patterns, APIs, and optimization techniques. They",
       "file": "agents/unity-specialist.md"
     },
     {
@@ -647,7 +648,7 @@
       ],
       "modelTier": "A",
       "toolProfile": "coder",
-      "summary": "The Unity UI specialist owns all Unity UI implementation: UI Toolkit (UXML/USS),",
+      "summary": "The Unity UI specialist owns all Unity UI implementation: UI Toolkit (UXML/USS), UGUI (Canvas), data binding, runtime UI",
       "file": "agents/unity-ui-specialist.md"
     },
     {
@@ -661,7 +662,7 @@
       "subsystems": [],
       "modelTier": "A",
       "toolProfile": "coder",
-      "summary": "The Unreal Engine Specialist is the authority on all Unreal-specific patterns, A",
+      "summary": "The Unreal Engine Specialist is the authority on all Unreal-specific patterns, APIs, and optimization techniques. They",
       "file": "agents/unreal-specialist.md"
     },
     {
@@ -675,7 +676,7 @@
       ],
       "modelTier": "A",
       "toolProfile": "designer",
-      "summary": "The UX Designer owns user experience flows, interaction design, accessibility, i",
+      "summary": "The UX Designer owns user experience flows, interaction design, accessibility, information architecture, and input",
       "file": "agents/ux-designer.md"
     },
     {
@@ -687,7 +688,7 @@
       "subsystems": [],
       "modelTier": "A",
       "toolProfile": "coder",
-      "summary": "The World Builder designs detailed world lore: factions, cultures, history, geog",
+      "summary": "The World Builder designs detailed world lore: factions, cultures, history, geography, ecology, and the rules that",
       "file": "agents/world-builder.md"
     },
     {
@@ -701,7 +702,7 @@
       ],
       "modelTier": "A",
       "toolProfile": "designer",
-      "summary": "The Writer creates dialogue, lore entries, item descriptions, environmental text",
+      "summary": "The Writer creates dialogue, lore entries, item descriptions, environmental text, and all player-facing written content",
       "file": "agents/writer.md"
     }
   ],
@@ -715,8 +716,9 @@
       "roles": [
         "specialist"
       ],
-      "summary": "Brownfield onboarding — audits existing project artifacts for template format co",
-      "file": "skills/adopt/SKILL.md"
+      "summary": "Brownfield onboarding — audits existing project artifacts for template format compliance (not just existence)",
+      "file": "skills/adopt/SKILL.md",
+      "agent": "technical-director"
     },
     {
       "id": "architecture-decision",
@@ -727,7 +729,7 @@
       "roles": [
         "specialist"
       ],
-      "summary": "Creates an Architecture Decision Record (ADR) documenting a significant technica",
+      "summary": "Creates an Architecture Decision Record (ADR) documenting a significant technical decision, its context, alternatives",
       "file": "skills/architecture-decision/SKILL.md"
     },
     {
@@ -739,8 +741,9 @@
       "roles": [
         "reviewer"
       ],
-      "summary": "Validates completeness and consistency of the project architecture against all G",
-      "file": "skills/architecture-review/SKILL.md"
+      "summary": "Validates completeness and consistency of the project architecture against all GDDs. Builds a traceability matrix",
+      "file": "skills/architecture-review/SKILL.md",
+      "agent": "technical-director"
     },
     {
       "id": "art-bible",
@@ -751,7 +754,7 @@
       "roles": [
         "specialist"
       ],
-      "summary": "Guided, section-by-section Art Bible authoring. Creates the visual identity spec",
+      "summary": "Guided, section-by-section Art Bible authoring. Creates the visual identity specification that gates all asset",
       "file": "skills/art-bible/SKILL.md"
     },
     {
@@ -763,7 +766,7 @@
       "roles": [
         "specialist"
       ],
-      "summary": "Audits game assets for compliance with naming conventions, file size budgets, fo",
+      "summary": "Audits game assets for compliance with naming conventions, file size budgets, format standards, and pipeline",
       "file": "skills/asset-audit/SKILL.md"
     },
     {
@@ -775,7 +778,7 @@
       "roles": [
         "specialist"
       ],
-      "summary": "Generate per-asset visual specifications and AI generation prompts from GDDs, le",
+      "summary": "Generate per-asset visual specifications and AI generation prompts from GDDs, level docs, or character profiles",
       "file": "skills/asset-spec/SKILL.md"
     },
     {
@@ -790,8 +793,9 @@
       "roles": [
         "specialist"
       ],
-      "summary": "Analyzes game balance data files, formulas, and configuration to identify outlie",
-      "file": "skills/balance-check/SKILL.md"
+      "summary": "Analyzes game balance data files, formulas, and configuration to identify outliers, broken progressions, degenerate",
+      "file": "skills/balance-check/SKILL.md",
+      "agent": "economy-designer"
     },
     {
       "id": "brainstorm",
@@ -804,7 +808,7 @@
       "roles": [
         "specialist"
       ],
-      "summary": "Guided game concept ideation — from zero idea to a structured game concept docum",
+      "summary": "Guided game concept ideation — from zero idea to a structured game concept document. Uses professional studio ideation",
       "file": "skills/brainstorm/SKILL.md"
     },
     {
@@ -818,7 +822,7 @@
       "roles": [
         "specialist"
       ],
-      "summary": "Creates a structured bug report from a description, or analyzes code to identify",
+      "summary": "Creates a structured bug report from a description, or analyzes code to identify potential bugs. Ensures every bug",
       "file": "skills/bug-report/SKILL.md"
     },
     {
@@ -832,7 +836,7 @@
       "roles": [
         "specialist"
       ],
-      "summary": "Read all open bugs in production/qa/bugs/, re-evaluate priority vs. severity, as",
+      "summary": "Read all open bugs in production/qa/bugs/, re-evaluate priority vs. severity, assign to sprints, surface systemic",
       "file": "skills/bug-triage/SKILL.md"
     },
     {
@@ -846,7 +850,7 @@
       "roles": [
         "specialist"
       ],
-      "summary": "Auto-generates a changelog from git commits, sprint data, and design documents. ",
+      "summary": "Auto-generates a changelog from git commits, sprint data, and design documents. Produces both internal and player-facing",
       "file": "skills/changelog/SKILL.md"
     },
     {
@@ -860,8 +864,9 @@
       "roles": [
         "reviewer"
       ],
-      "summary": "Performs an architectural and quality code review on a specified file or set of ",
-      "file": "skills/code-review/SKILL.md"
+      "summary": "Performs an architectural and quality code review on a specified file or set of files. Checks for coding standard",
+      "file": "skills/code-review/SKILL.md",
+      "agent": "lead-programmer"
     },
     {
       "id": "consistency-check",
@@ -872,7 +877,7 @@
       "roles": [
         "specialist"
       ],
-      "summary": "Scan all GDDs against the entity registry to detect cross-document inconsistenci",
+      "summary": "Scan all GDDs against the entity registry to detect cross-document inconsistencies: same entity with different stats",
       "file": "skills/consistency-check/SKILL.md"
     },
     {
@@ -884,8 +889,9 @@
       "roles": [
         "specialist"
       ],
-      "summary": "Audit GDD-specified content counts against implemented content. Identifies what'",
-      "file": "skills/content-audit/SKILL.md"
+      "summary": "Audit GDD-specified content counts against implemented content. Identifies what's planned vs built.",
+      "file": "skills/content-audit/SKILL.md",
+      "agent": "producer"
     },
     {
       "id": "create-architecture",
@@ -899,8 +905,9 @@
       "roles": [
         "specialist"
       ],
-      "summary": "Guided, section-by-section authoring of the master architecture document for the",
-      "file": "skills/create-architecture/SKILL.md"
+      "summary": "Guided, section-by-section authoring of the master architecture document for the game. Reads all GDDs, the systems",
+      "file": "skills/create-architecture/SKILL.md",
+      "agent": "technical-director"
     },
     {
       "id": "create-control-manifest",
@@ -914,8 +921,9 @@
       "roles": [
         "specialist"
       ],
-      "summary": "After architecture is complete, produces a flat actionable rules sheet for progr",
-      "file": "skills/create-control-manifest/SKILL.md"
+      "summary": "After architecture is complete, produces a flat actionable rules sheet for programmers — what you must do, what you must",
+      "file": "skills/create-control-manifest/SKILL.md",
+      "agent": "technical-director"
     },
     {
       "id": "create-epics",
@@ -929,8 +937,9 @@
       "roles": [
         "specialist"
       ],
-      "summary": "Translate approved GDDs + architecture into epics — one epic per architectural m",
-      "file": "skills/create-epics/SKILL.md"
+      "summary": "Translate approved GDDs + architecture into epics — one epic per architectural module. Defines scope, governing ADRs",
+      "file": "skills/create-epics/SKILL.md",
+      "agent": "technical-director"
     },
     {
       "id": "create-stories",
@@ -944,8 +953,9 @@
       "roles": [
         "specialist"
       ],
-      "summary": "Break a single epic into implementable story files. Reads the epic, its GDD, gov",
-      "file": "skills/create-stories/SKILL.md"
+      "summary": "Break a single epic into implementable story files. Reads the epic, its GDD, governing ADRs, and control manifest. Each",
+      "file": "skills/create-stories/SKILL.md",
+      "agent": "lead-programmer"
     },
     {
       "id": "day-one-patch",
@@ -956,7 +966,7 @@
       "roles": [
         "specialist"
       ],
-      "summary": "Prepare a day-one patch for a game launch. Scopes, prioritises, implements, and ",
+      "summary": "Prepare a day-one patch for a game launch. Scopes, prioritises, implements, and QA-gates a focused patch addressing",
       "file": "skills/day-one-patch/SKILL.md"
     },
     {
@@ -968,7 +978,7 @@
       "roles": [
         "reviewer"
       ],
-      "summary": "Reviews a game design document for completeness, internal consistency, implement",
+      "summary": "Reviews a game design document for completeness, internal consistency, implementability, and adherence to project design",
       "file": "skills/design-review/SKILL.md"
     },
     {
@@ -982,7 +992,7 @@
       "roles": [
         "designer"
       ],
-      "summary": "Guided, section-by-section GDD authoring for a single game system. Gathers conte",
+      "summary": "Guided, section-by-section GDD authoring for a single game system. Gathers context from existing docs, walks through",
       "file": "skills/design-system/SKILL.md"
     },
     {
@@ -997,7 +1007,7 @@
       "roles": [
         "specialist"
       ],
-      "summary": "Read a story file and implement it. Loads the full context (story, GDD requireme",
+      "summary": "Read a story file and implement it. Loads the full context (story, GDD requirement, ADR guidelines, control manifest)",
       "file": "skills/dev-story/SKILL.md"
     },
     {
@@ -1012,7 +1022,7 @@
       "roles": [
         "specialist"
       ],
-      "summary": "Estimates task effort by analyzing complexity, dependencies, historical velocity",
+      "summary": "Estimates task effort by analyzing complexity, dependencies, historical velocity, and risk factors. Produces a",
       "file": "skills/estimate/SKILL.md"
     },
     {
@@ -1024,7 +1034,7 @@
       "roles": [
         "specialist"
       ],
-      "summary": "Validate readiness to advance between development phases. Produces a PASS/CONCER",
+      "summary": "Validate readiness to advance between development phases. Produces a PASS/CONCERNS/FAIL verdict with specific blockers",
       "file": "skills/gate-check/SKILL.md"
     },
     {
@@ -1036,7 +1046,7 @@
       "roles": [
         "specialist"
       ],
-      "summary": "Analyzes what is done and the users query and offers advice on what to do next. ",
+      "summary": "Analyzes what is done and the users query and offers advice on what to do next. Use if user says what should I do next",
       "file": "skills/help/SKILL.md"
     },
     {
@@ -1050,7 +1060,7 @@
       "roles": [
         "specialist"
       ],
-      "summary": "Emergency fix workflow that bypasses normal sprint processes with a full audit t",
+      "summary": "Emergency fix workflow that bypasses normal sprint processes with a full audit trail. Creates hotfix branch, tracks",
       "file": "skills/hotfix/SKILL.md"
     },
     {
@@ -1064,7 +1074,7 @@
       "roles": [
         "specialist"
       ],
-      "summary": "Complete launch readiness validation covering every department: code, content, s",
+      "summary": "Complete launch readiness validation covering every department: code, content, store, marketing, community",
       "file": "skills/launch-checklist/SKILL.md"
     },
     {
@@ -1078,8 +1088,9 @@
       "roles": [
         "specialist"
       ],
-      "summary": "Full localization pipeline: scan for hardcoded strings, extract and manage strin",
-      "file": "skills/localize/SKILL.md"
+      "summary": "Full localization pipeline: scan for hardcoded strings, extract and manage string tables, validate translations",
+      "file": "skills/localize/SKILL.md",
+      "agent": "localization-lead"
     },
     {
       "id": "map-systems",
@@ -1092,7 +1103,7 @@
       "roles": [
         "specialist"
       ],
-      "summary": "Decompose a game concept into individual systems, map dependencies, prioritize d",
+      "summary": "Decompose a game concept into individual systems, map dependencies, prioritize design order, and create the systems",
       "file": "skills/map-systems/SKILL.md"
     },
     {
@@ -1104,7 +1115,7 @@
       "roles": [
         "reviewer"
       ],
-      "summary": "Generates a comprehensive milestone progress review including feature completene",
+      "summary": "Generates a comprehensive milestone progress review including feature completeness, quality metrics, risk assessment",
       "file": "skills/milestone-review/SKILL.md"
     },
     {
@@ -1116,7 +1127,7 @@
       "roles": [
         "specialist"
       ],
-      "summary": "Generates a contextual onboarding document for a new contributor or agent joinin",
+      "summary": "Generates a contextual onboarding document for a new contributor or agent joining the project. Summarizes project state",
       "file": "skills/onboard/SKILL.md"
     },
     {
@@ -1130,8 +1141,9 @@
       "roles": [
         "specialist"
       ],
-      "summary": "Generate player-facing patch notes from git history, sprint data, and internal c",
-      "file": "skills/patch-notes/SKILL.md"
+      "summary": "Generate player-facing patch notes from git history, sprint data, and internal changelogs. Translates developer language",
+      "file": "skills/patch-notes/SKILL.md",
+      "agent": "community-manager"
     },
     {
       "id": "perf-profile",
@@ -1142,8 +1154,9 @@
       "roles": [
         "specialist"
       ],
-      "summary": "Structured performance profiling workflow. Identifies bottlenecks, measures agai",
-      "file": "skills/perf-profile/SKILL.md"
+      "summary": "Structured performance profiling workflow. Identifies bottlenecks, measures against budgets, and generates optimization",
+      "file": "skills/perf-profile/SKILL.md",
+      "agent": "performance-analyst"
     },
     {
       "id": "playtest-report",
@@ -1154,7 +1167,7 @@
       "roles": [
         "reviewer"
       ],
-      "summary": "Generates a structured playtest report template or analyzes existing playtest no",
+      "summary": "Generates a structured playtest report template or analyzes existing playtest notes into a structured format. Use this",
       "file": "skills/playtest-report/SKILL.md"
     },
     {
@@ -1166,7 +1179,7 @@
       "roles": [
         "specialist"
       ],
-      "summary": "Automatically analyze project state, detect stage, identify gaps, and recommend ",
+      "summary": "Automatically analyze project state, detect stage, identify gaps, and recommend next steps based on existing artifacts",
       "file": "skills/project-stage-detect/SKILL.md"
     },
     {
@@ -1178,8 +1191,9 @@
       "roles": [
         "designer"
       ],
-      "summary": "When a GDD is revised, scans all ADRs and the traceability index to identify whi",
-      "file": "skills/propagate-design-change/SKILL.md"
+      "summary": "When a GDD is revised, scans all ADRs and the traceability index to identify which architectural decisions are now",
+      "file": "skills/propagate-design-change/SKILL.md",
+      "agent": "technical-director"
     },
     {
       "id": "prototype",
@@ -1190,8 +1204,9 @@
       "roles": [
         "specialist"
       ],
-      "summary": "Concept prototype — validate the core idea is worth designing before writing GDD",
-      "file": "skills/prototype/SKILL.md"
+      "summary": "Concept prototype — validate the core idea is worth designing before writing GDDs. Run right after /brainstorm and",
+      "file": "skills/prototype/SKILL.md",
+      "agent": "prototyper"
     },
     {
       "id": "qa-plan",
@@ -1204,8 +1219,9 @@
       "roles": [
         "specialist"
       ],
-      "summary": "Generate a QA test plan for a sprint or feature. Reads GDDs and story files, cla",
-      "file": "skills/qa-plan/SKILL.md"
+      "summary": "Generate a QA test plan for a sprint or feature. Reads GDDs and story files, classifies stories by test type",
+      "file": "skills/qa-plan/SKILL.md",
+      "agent": "qa-lead"
     },
     {
       "id": "quick-design",
@@ -1218,7 +1234,7 @@
       "roles": [
         "designer"
       ],
-      "summary": "Lightweight design spec for small changes — tuning adjustments, minor mechanics,",
+      "summary": "Lightweight design spec for small changes — tuning adjustments, minor mechanics, balance tweaks. Skips full GDD",
       "file": "skills/quick-design/SKILL.md"
     },
     {
@@ -1232,7 +1248,7 @@
       "roles": [
         "specialist"
       ],
-      "summary": "Map test coverage to GDD critical paths, identify fixed bugs without regression ",
+      "summary": "Map test coverage to GDD critical paths, identify fixed bugs without regression tests, flag coverage drift from new",
       "file": "skills/regression-suite/SKILL.md"
     },
     {
@@ -1246,7 +1262,7 @@
       "roles": [
         "specialist"
       ],
-      "summary": "Generates a comprehensive pre-release validation checklist covering build verifi",
+      "summary": "Generates a comprehensive pre-release validation checklist covering build verification, certification requirements",
       "file": "skills/release-checklist/SKILL.md"
     },
     {
@@ -1258,7 +1274,7 @@
       "roles": [
         "specialist"
       ],
-      "summary": "Generates a sprint or milestone retrospective by analyzing completed work, veloc",
+      "summary": "Generates a sprint or milestone retrospective by analyzing completed work, velocity, blockers, and patterns. Produces",
       "file": "skills/retrospective/SKILL.md"
     },
     {
@@ -1270,7 +1286,7 @@
       "roles": [
         "specialist"
       ],
-      "summary": "Generate design or architecture documents from existing implementation. Works ba",
+      "summary": "Generate design or architecture documents from existing implementation. Works backwards from code/prototypes to create",
       "file": "skills/reverse-document/SKILL.md"
     },
     {
@@ -1282,7 +1298,7 @@
       "roles": [
         "reviewer"
       ],
-      "summary": "Holistic cross-GDD consistency and game design review. Reads all system GDDs sim",
+      "summary": "Holistic cross-GDD consistency and game design review. Reads all system GDDs simultaneously and checks for",
       "file": "skills/review-all-gdds/SKILL.md"
     },
     {
@@ -1294,7 +1310,7 @@
       "roles": [
         "specialist"
       ],
-      "summary": "Analyze a feature or sprint for scope creep by comparing current scope against t",
+      "summary": "Analyze a feature or sprint for scope creep by comparing current scope against the original plan. Flags additions",
       "file": "skills/scope-check/SKILL.md"
     },
     {
@@ -1306,8 +1322,9 @@
       "roles": [
         "specialist"
       ],
-      "summary": "Audit the game for security vulnerabilities: save tampering, cheat vectors, netw",
-      "file": "skills/security-audit/SKILL.md"
+      "summary": "Audit the game for security vulnerabilities: save tampering, cheat vectors, network exploits, data exposure, and input",
+      "file": "skills/security-audit/SKILL.md",
+      "agent": "security-engineer"
     },
     {
       "id": "setup-engine",
@@ -1318,7 +1335,7 @@
       "roles": [
         "specialist"
       ],
-      "summary": "Configure the project's game engine and version. Pins the engine in AGENTS.md, d",
+      "summary": "Configure the project's game engine and version. Pins the engine in AGENTS.md, detects knowledge gaps, and populates",
       "file": "skills/setup-engine/SKILL.md"
     },
     {
@@ -1330,7 +1347,7 @@
       "roles": [
         "specialist"
       ],
-      "summary": "Improve a skill using a test-fix-retest loop. Runs static checks, proposes targe",
+      "summary": "Improve a skill using a test-fix-retest loop. Runs static checks, proposes targeted fixes, rewrites the skill, re-tests",
       "file": "skills/skill-improve/SKILL.md"
     },
     {
@@ -1342,7 +1359,7 @@
       "roles": [
         "reviewer"
       ],
-      "summary": "Validate skill files for structural compliance and behavioral correctness. Three",
+      "summary": "Validate skill files for structural compliance and behavioral correctness. Three modes: static (linter), spec",
       "file": "skills/skill-test/SKILL.md"
     },
     {
@@ -1356,7 +1373,7 @@
       "roles": [
         "specialist"
       ],
-      "summary": "Run the critical path smoke test gate before QA hand-off. Executes the automated",
+      "summary": "Run the critical path smoke test gate before QA hand-off. Executes the automated test suite, verifies core",
       "file": "skills/smoke-check/SKILL.md"
     },
     {
@@ -1370,7 +1387,7 @@
       "roles": [
         "reviewer"
       ],
-      "summary": "Generate a soak test protocol for extended play sessions. Defines what to observ",
+      "summary": "Generate a soak test protocol for extended play sessions. Defines what to observe, measure, and log during long play",
       "file": "skills/soak-test/SKILL.md"
     },
     {
@@ -1385,7 +1402,7 @@
       "roles": [
         "specialist"
       ],
-      "summary": "Generates a new sprint plan or updates an existing one based on the current mile",
+      "summary": "Generates a new sprint plan or updates an existing one based on the current milestone, completed work, and available",
       "file": "skills/sprint-plan/SKILL.md"
     },
     {
@@ -1400,7 +1417,7 @@
       "roles": [
         "specialist"
       ],
-      "summary": "Fast sprint status check. Reads the current sprint plan, scans story files for s",
+      "summary": "Fast sprint status check. Reads the current sprint plan, scans story files for status, and produces a concise progress",
       "file": "skills/sprint-status/SKILL.md"
     },
     {
@@ -1412,7 +1429,7 @@
       "roles": [
         "specialist"
       ],
-      "summary": "First-time onboarding — asks where you are, then guides you to the right workflo",
+      "summary": "First-time onboarding — asks where you are, then guides you to the right workflow. No assumptions.",
       "file": "skills/start/SKILL.md"
     },
     {
@@ -1427,7 +1444,7 @@
       "roles": [
         "specialist"
       ],
-      "summary": "End-of-story completion review. Reads the story file, verifies each acceptance c",
+      "summary": "End-of-story completion review. Reads the story file, verifies each acceptance criterion against the implementation",
       "file": "skills/story-done/SKILL.md"
     },
     {
@@ -1442,7 +1459,7 @@
       "roles": [
         "specialist"
       ],
-      "summary": "Validate that a story file is implementation-ready. Checks for embedded GDD requ",
+      "summary": "Validate that a story file is implementation-ready. Checks for embedded GDD requirements, ADR references, engine notes",
       "file": "skills/story-readiness/SKILL.md"
     },
     {
@@ -1456,7 +1473,7 @@
       "roles": [
         "specialist"
       ],
-      "summary": "Orchestrate audio team: audio-director + sound-designer + technical-artist + gam",
+      "summary": "Orchestrate audio team: audio-director + sound-designer + technical-artist + gameplay-programmer for full audio pipeline",
       "file": "skills/team-audio/SKILL.md"
     },
     {
@@ -1470,7 +1487,7 @@
       "roles": [
         "specialist"
       ],
-      "summary": "Orchestrate the combat team: coordinates game-designer, gameplay-programmer, ai-",
+      "summary": "Orchestrate the combat team: coordinates game-designer, gameplay-programmer, ai-programmer, technical-artist",
       "file": "skills/team-combat/SKILL.md"
     },
     {
@@ -1484,7 +1501,7 @@
       "roles": [
         "specialist"
       ],
-      "summary": "Orchestrate level design team: level-designer + narrative-director + world-build",
+      "summary": "Orchestrate level design team: level-designer + narrative-director + world-builder + art-director + systems-designer +",
       "file": "skills/team-level/SKILL.md"
     },
     {
@@ -1498,7 +1515,7 @@
       "roles": [
         "specialist"
       ],
-      "summary": "Orchestrate the live-ops team for post-launch content planning: coordinates live",
+      "summary": "Orchestrate the live-ops team for post-launch content planning: coordinates live-ops-designer, economy-designer",
       "file": "skills/team-live-ops/SKILL.md"
     },
     {
@@ -1512,7 +1529,7 @@
       "roles": [
         "specialist"
       ],
-      "summary": "Orchestrate the narrative team: coordinates narrative-director, writer, world-bu",
+      "summary": "Orchestrate the narrative team: coordinates narrative-director, writer, world-builder, and level-designer to create",
       "file": "skills/team-narrative/SKILL.md"
     },
     {
@@ -1526,7 +1543,7 @@
       "roles": [
         "specialist"
       ],
-      "summary": "Orchestrate the polish team: coordinates performance-analyst, technical-artist, ",
+      "summary": "Orchestrate the polish team: coordinates performance-analyst, technical-artist, sound-designer, and qa-tester to",
       "file": "skills/team-polish/SKILL.md"
     },
     {
@@ -1540,8 +1557,9 @@
       "roles": [
         "specialist"
       ],
-      "summary": "Orchestrate the QA team through a full testing cycle. Coordinates qa-lead (strat",
-      "file": "skills/team-qa/SKILL.md"
+      "summary": "Orchestrate the QA team through a full testing cycle. Coordinates qa-lead (strategy + test plan) and qa-tester (test",
+      "file": "skills/team-qa/SKILL.md",
+      "agent": "qa-lead"
     },
     {
       "id": "team-release",
@@ -1554,7 +1572,7 @@
       "roles": [
         "specialist"
       ],
-      "summary": "Orchestrate the release team: coordinates release-manager, qa-lead, devops-engin",
+      "summary": "Orchestrate the release team: coordinates release-manager, qa-lead, devops-engineer, and producer to execute a release",
       "file": "skills/team-release/SKILL.md"
     },
     {
@@ -1568,7 +1586,7 @@
       "roles": [
         "specialist"
       ],
-      "summary": "Orchestrate the UI team through the full UX pipeline: from UX spec authoring thr",
+      "summary": "Orchestrate the UI team through the full UX pipeline: from UX spec authoring through visual design, implementation",
       "file": "skills/team-ui/SKILL.md"
     },
     {
@@ -1580,7 +1598,7 @@
       "roles": [
         "specialist"
       ],
-      "summary": "Track, categorize, and prioritize technical debt across the codebase. Scans for ",
+      "summary": "Track, categorize, and prioritize technical debt across the codebase. Scans for debt indicators, maintains a debt",
       "file": "skills/tech-debt/SKILL.md"
     },
     {
@@ -1594,7 +1612,7 @@
       "roles": [
         "reviewer"
       ],
-      "summary": "Quality review of test files and manual evidence documents. Goes beyond existenc",
+      "summary": "Quality review of test files and manual evidence documents. Goes beyond existence checks — evaluates assertion coverage",
       "file": "skills/test-evidence-review/SKILL.md"
     },
     {
@@ -1608,7 +1626,7 @@
       "roles": [
         "reviewer"
       ],
-      "summary": "Detect non-deterministic (flaky) tests by reading CI run logs or test result his",
+      "summary": "Detect non-deterministic (flaky) tests by reading CI run logs or test result history. Aggregates pass rates per test",
       "file": "skills/test-flakiness/SKILL.md"
     },
     {
@@ -1622,7 +1640,7 @@
       "roles": [
         "reviewer"
       ],
-      "summary": "Generate engine-specific test helper libraries for the project's test suite. Rea",
+      "summary": "Generate engine-specific test helper libraries for the project's test suite. Reads existing test patterns and produces",
       "file": "skills/test-helpers/SKILL.md"
     },
     {
@@ -1636,7 +1654,7 @@
       "roles": [
         "reviewer"
       ],
-      "summary": "Scaffold the test framework and CI/CD pipeline for the project's engine. Creates",
+      "summary": "Scaffold the test framework and CI/CD pipeline for the project's engine. Creates the tests/ directory structure",
       "file": "skills/test-setup/SKILL.md"
     },
     {
@@ -1650,8 +1668,9 @@
       "roles": [
         "designer"
       ],
-      "summary": "Guided, section-by-section UX spec authoring for a screen, flow, or HUD. Reads g",
-      "file": "skills/ux-design/SKILL.md"
+      "summary": "Guided, section-by-section UX spec authoring for a screen, flow, or HUD. Reads game concept, player journey, and",
+      "file": "skills/ux-design/SKILL.md",
+      "agent": "ux-designer"
     },
     {
       "id": "ux-review",
@@ -1664,8 +1683,9 @@
       "roles": [
         "reviewer"
       ],
-      "summary": "Validates a UX spec, HUD design, or interaction pattern library for completeness",
-      "file": "skills/ux-review/SKILL.md"
+      "summary": "Validates a UX spec, HUD design, or interaction pattern library for completeness, accessibility compliance, GDD",
+      "file": "skills/ux-review/SKILL.md",
+      "agent": "ux-designer"
     },
     {
       "id": "vertical-slice",
@@ -1676,8 +1696,9 @@
       "roles": [
         "specialist"
       ],
-      "summary": "Pre-Production validation — build a production-quality end-to-end build to confi",
-      "file": "skills/vertical-slice/SKILL.md"
+      "summary": "Pre-Production validation — build a production-quality end-to-end build to confirm the full game loop is achievable",
+      "file": "skills/vertical-slice/SKILL.md",
+      "agent": "prototyper"
     }
   ],
   "rules": [
@@ -1693,9 +1714,7 @@
       "id": "data-files",
       "kind": "rule",
       "globs": [
-        "**/*.json",
-        "**/*.yaml",
-        "**/*.yml"
+        "assets/data/**"
       ],
       "file": "rules/data-files.md"
     },
@@ -1711,7 +1730,7 @@
       "id": "engine-code",
       "kind": "rule",
       "globs": [
-        "src/engine/**"
+        "src/core/**"
       ],
       "file": "rules/engine-code.md"
     },
@@ -1737,7 +1756,7 @@
       "id": "network-code",
       "kind": "rule",
       "globs": [
-        "src/network/**"
+        "src/networking/**"
       ],
       "file": "rules/network-code.md"
     },

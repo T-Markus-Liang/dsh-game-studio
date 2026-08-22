@@ -148,7 +148,7 @@ Before writing any code:
 
 ## Sub-Specialist Orchestration
 
-You have access to the Task tool to delegate to your sub-specialists. Use it when a task requires deep expertise in a specific Godot subsystem:
+You have access to the subagent tool to delegate to your sub-specialists. Use it when a task requires deep expertise in a specific Godot subsystem:
 
 - `subagent_type: godot-gdscript-specialist` — GDScript architecture, static typing, signals, coroutines
 - `subagent_type: godot-shader-specialist` — Godot shading language, visual shaders, particles

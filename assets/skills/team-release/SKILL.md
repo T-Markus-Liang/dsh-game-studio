@@ -6,13 +6,13 @@ user-invocable: false
 ---
 
 **Argument check:** If no version number is provided:
-1. Read `.dsh/game-studio/state//active.md` and the most recent file in `production/milestones/` (if they exist) to infer the target version.
-2. If a version is found: report "No version argument provided — inferred [version] from milestone data. Proceeding." Then confirm with `通过宿主 ask 机制向用户提问`: "Releasing [version]. Is this correct?"
-3. If no version is discoverable: use `通过宿主 ask 机制向用户提问` to ask "What version number should be released? (e.g., v1.0.0)" and wait for user input before proceeding. Do NOT default to a hardcoded version string.
+1. Read `.dsh/game-studio/state/active.md` and the most recent file in `production/milestones/` (if they exist) to infer the target version.
+2. If a version is found: report "No version argument provided — inferred [version] from milestone data. Proceeding." Then confirm with `the host's ask/question mechanism`: "Releasing [version]. Is this correct?"
+3. If no version is discoverable: use `the host's ask/question mechanism` to ask "What version number should be released? (e.g., v1.0.0)" and wait for user input before proceeding. Do NOT default to a hardcoded version string.
 
 When this skill is invoked, orchestrate the release team through a structured pipeline.
 
-**Decision Points:** At each phase transition, use `通过宿主 ask 机制向用户提问` to present
+**Decision Points:** At each phase transition, use `the host's ask/question mechanism` to present
 the user with the subagent's proposals as selectable options. Write the agent's
 full analysis in conversation, then capture the decision with concise labels.
 The user must approve before moving to the next phase.
@@ -41,7 +41,7 @@ Store the resolved mode for use in all subsequent phases.
 
 ## How to Delegate
 
-Use the Task tool to spawn each team member as a subagent:
+Delegate via the subagent tool to spawn each team member as a subagent:
 - `subagent_type: release-manager` — Release branch, versioning, changelog, deployment
 - `subagent_type: qa-lead` — Test sign-off, regression suite, release quality gate
 - `subagent_type: devops-engineer` — Build pipeline, artifacts, deployment automation
@@ -93,7 +93,7 @@ Delegate to **producer**:
 
 **If producer declares NO-GO:**
 - Surface the decision immediately: "PRODUCER: NO-GO — [rationale, e.g., S1 bug found in Phase 3]."
-- Use `通过宿主 ask 机制向用户提问` with options:
+- Use `the host's ask/question mechanism` with options:
   - Fix the blocker and re-run the affected phase
   - Defer the release to a later date
   - Override NO-GO with documented rationale (user must provide written justification)
@@ -135,7 +135,7 @@ If any spawned agent (via Task) returns BLOCKED, errors, or cannot complete:
 
 1. **Surface immediately**: Report "[AgentName]: BLOCKED — [reason]" to the user before continuing to dependent phases
 2. **Assess dependencies**: Check whether the blocked agent's output is required by subsequent phases. If yes, do not proceed past that dependency point without user input.
-3. **Offer options** via 通过宿主 ask 机制向用户提问 with choices:
+3. **Offer options** via the host's ask/question mechanism with choices:
    - Skip this agent and note the gap in the final report
    - Retry with narrower scope
    - Stop here and resolve the blocker first

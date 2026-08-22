@@ -113,7 +113,7 @@ If there are untraced requirements:
 > stories for these requirements will be marked Blocked until ADRs exist.
 > Run `/architecture-decision` first, or proceed with placeholders."
 
-Use `通过宿主 ask 机制向用户提问`:
+Use `the host's ask/question mechanism`:
 - Prompt: "Shall I create Epic: [name]?"
 - Options:
   - `[A] Yes, create it`
@@ -137,7 +137,7 @@ Present the producer's assessment.
 
 If UNREALISTIC: offer to revise epic boundaries (split overscoped or merge underscoped epics). Revise and re-run the gate before writing.
 
-If CONCERNS, use `通过宿主 ask 机制向用户提问`:
+If CONCERNS, use `the host's ask/question mechanism`:
 - Prompt: "Producer raised concerns about the epic structure. How do you want to proceed?"
 - Options:
   - `[A] Proceed as planned — I accept the producer's concerns`

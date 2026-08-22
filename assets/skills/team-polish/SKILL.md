@@ -6,11 +6,11 @@ user-invocable: false
 ---
 
 If no argument is provided, output usage guidance and exit without spawning any agents:
-> Usage: `/team-polish [feature or area]` — specify the feature or area to polish (e.g., `combat`, `main menu`, `inventory system`, `level-1`). Do not use `通过宿主 ask 机制向用户提问` here; output the guidance directly.
+> Usage: `/team-polish [feature or area]` — specify the feature or area to polish (e.g., `combat`, `main menu`, `inventory system`, `level-1`). Do not use `the host's ask/question mechanism` here; output the guidance directly.
 
 When this skill is invoked with an argument, orchestrate the polish team through a structured pipeline.
 
-**Decision Points:** At each phase transition, use `通过宿主 ask 机制向用户提问` to present
+**Decision Points:** At each phase transition, use `the host's ask/question mechanism` to present
 the user with the subagent's proposals as selectable options. Write the agent's
 full analysis in conversation, then capture the decision with concise labels.
 The user must approve before moving to the next phase.
@@ -40,7 +40,7 @@ Store the resolved mode for use in all subsequent phases.
 
 ## How to Delegate
 
-Use the Task tool to spawn each team member as a subagent:
+Delegate via the subagent tool to spawn each team member as a subagent:
 - `subagent_type: performance-analyst` — Profiling, optimization, memory analysis
 - `subagent_type: engine-programmer` — Engine-level fixes for rendering, memory, resource loading
 - `subagent_type: technical-artist` — VFX polish, shader optimization, visual quality
@@ -110,7 +110,7 @@ If any spawned agent (via Task) returns BLOCKED, errors, or cannot complete:
 
 1. **Surface immediately**: Report "[AgentName]: BLOCKED — [reason]" to the user before continuing to dependent phases
 2. **Assess dependencies**: Check whether the blocked agent's output is required by subsequent phases. If yes, do not proceed past that dependency point without user input.
-3. **Offer options** via 通过宿主 ask 机制向用户提问 with choices:
+3. **Offer options** via the host's ask/question mechanism with choices:
    - Skip this agent and note the gap in the final report
    - Retry with narrower scope
    - Stop here and resolve the blocker first

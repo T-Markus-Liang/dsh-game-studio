@@ -7,8 +7,9 @@
  *
  *   assets/agents/            清洗后的 agent 正文（frontmatter 已清洗）
  *   assets/skills/<id>/SKILL.md
- *   assets/rules/             压缩到 ≤maxLines 行
- *   assets/templates/         模板（已做替换清洗 + maxLines 截断）
+ *   assets/rules/             清洗后的 rule 正文（全量，不截断）
+ *   assets/templates/         模板（已做替换清洗，全量迁移不截断）
+ *   assets/docs/              上游 .claude/docs/ 全量镜像（已做替换清洗）
  *   assets/manifest.json      agents + skills + rules 完整索引
  *   assets/UPSTREAM-LICENSE   上游 MIT 许可副本
  *
@@ -123,35 +124,33 @@ function rebuildFrontmatter(entries, keep, remove, add, replacements, label) {
 }
 
 /**
- * 从 frontmatter 条目中提取 description 值（去掉包裹引号），截取前 n 字符。
+ * 从 frontmatter 条目中提取 description 值（去掉包裹引号）。
  * @param {{key: string, value: string}[]} entries
- * @param {number} n
  * @returns {string}
  */
-function summaryFrom(entries, n = 80) {
+function summaryFrom(entries) {
   const entry = entries.find((e) => e.key === 'description');
   if (!entry) return '';
   let v = entry.value.trim();
   if ((v.startsWith('"') && v.endsWith('"')) || (v.startsWith("'") && v.endsWith("'"))) {
     v = v.slice(1, -1);
   }
-  return v.slice(0, n);
+  return v;
 }
 
 /**
- * 截断到 maxLines 行（含截断标记行），未超限则原样返回。
+ * 按词边界截断 summary：超过 maxChars 时在最后一个完整词后截断，
+ * 避免 80 字符硬截断产生断词。
  * @param {string} text
- * @param {number} maxLines
- * @param {string} label
+ * @param {number} maxChars
  * @returns {string}
  */
-function truncateLines(text, maxLines, label) {
-  const lines = text.replace(/\s+$/, '').split('\n');
-  if (lines.length <= maxLines) return `${lines.join('\n')}\n`;
-  const kept = lines.slice(0, maxLines - 1);
-  kept.push(`<!-- 迁移时截断至 ${maxLines} 行，完整内容见上游源 -->`);
-  reviewItems.push(`截断：${label} 由 ${lines.length} 行压缩到 ${maxLines} 行，请人工复核信息损失`);
-  return `${kept.join('\n')}\n`;
+function truncateSummary(text, maxChars = RULES.manifest?.summaryMaxChars ?? 120) {
+  const t = text.trim();
+  if (t.length <= maxChars) return t;
+  const head = t.slice(0, maxChars + 1);
+  const lastSpace = head.lastIndexOf(' ');
+  return (lastSpace > 0 ? head.slice(0, lastSpace) : t.slice(0, maxChars)).replace(/[\s,;:.]+$/, '');
 }
 
 /**
@@ -330,15 +329,15 @@ function skillRoles(id) {
   return ['specialist'];
 }
 
-/** 按序匹配的 rule globs 规则 */
+/** 按序匹配的 rule globs 规则（globs 对齐上游 .claude/rules/*.md frontmatter paths） */
 const RULE_GLOB_RULES = /** @type {[string, string[]][]} */ ([
   ['gameplay', ['**/*.gd', '**/*.cs', 'src/gameplay/**']],
   ['shader', ['**/*.gdshader', '**/*.shader', '**/*.hlsl']],
   ['ai', ['src/ai/**']],
-  ['network', ['src/network/**']],
+  ['network', ['src/networking/**']],
   ['ui', ['src/ui/**']],
-  ['engine', ['src/engine/**']],
-  ['data', ['**/*.json', '**/*.yaml', '**/*.yml']],
+  ['engine', ['src/core/**']],
+  ['data', ['assets/data/**']],
   ['design', ['design/**']],
   ['narrative', ['design/narrative/**']],
   ['test', ['**/*.test.*', '**/*.spec.*', 'tests/**']],
@@ -400,7 +399,7 @@ function main() {
       subsystems: agentSubsystems(id),
       modelTier: tier === 'specialist' ? 'A' : 'S',
       toolProfile: agentToolProfile(id, tier),
-      summary: applyReplacements(summaryFrom(entries), RULES.agents.personaReplacements).slice(0, 80),
+      summary: truncateSummary(applyReplacements(summaryFrom(entries), RULES.agents.personaReplacements)),
       file: `agents/${id}.md`,
     });
   }
@@ -430,16 +429,22 @@ function main() {
     writeFile(path.join(ASSETS, 'skills', dir, 'SKILL.md'), `${fm}\n\n${cleanedBody.replace(/^\n+/, '')}`);
 
     const category = skillCategory(dir);
-    skillEntries.push({
+    // 上游 frontmatter 的 agent: 字段（如 balance-check → economy-designer）
+    // 正文里已从 frontmatter 移除，但保留到 manifest 供 provider 路由使用。
+    const agentEntry = entries.find((e) => e.key === 'agent');
+    /** @type {any} */
+    const skillEntry = {
       id: dir,
       kind: 'skill',
       category,
       workflows: CATEGORY_WORKFLOWS[category] ?? [],
       phase: CATEGORY_PHASE[category] ?? 'DESIGN',
       roles: skillRoles(dir),
-      summary: applyReplacements(summaryFrom(entries), RULES.skills.bodyReplacements).slice(0, 80),
+      summary: truncateSummary(applyReplacements(summaryFrom(entries), RULES.skills.bodyReplacements)),
       file: `skills/${dir}/SKILL.md`,
-    });
+    };
+    if (agentEntry && agentEntry.value.trim()) skillEntry.agent = agentEntry.value.trim();
+    skillEntries.push(skillEntry);
   }
 
   // --- 3. rules ---------------------------------------------------------------
@@ -449,12 +454,12 @@ function main() {
   for (const file of fs.readdirSync(rulesSrc).filter((f) => f.endsWith('.md')).sort()) {
     const id = file.replace(/\.md$/, '');
     const raw = fs.readFileSync(path.join(rulesSrc, file), 'utf8');
-    // 剥离 frontmatter（paths 信息由 manifest.globs 承载），压缩到 maxLines
+    // 剥离 frontmatter（paths 信息由 manifest.globs 承载），全量迁移不截断
     const { body } = parseFrontmatter(raw);
     const cleaned = applyReplacements(body.replace(/^\n+/, ''), RULES.agents.personaReplacements);
     writeFile(
       path.join(ASSETS, 'rules', `${id}.md`),
-      truncateLines(cleaned, RULES.rules.maxLines, `rules/${id}.md`),
+      `${cleaned.replace(/\s+$/, '')}\n`,
     );
     ruleEntries.push({
       id,
@@ -466,7 +471,7 @@ function main() {
 
   // --- 4. templates -----------------------------------------------------------
   // 注意：为满足清洗断言（assets/ 中不得出现 .claude/、AskUserQuestion、Claude Code），
-  // 模板同样应用 personaReplacements，并按 templates.maxLines 截断；差异记入复核清单。
+  // 模板同样应用 personaReplacements。全量迁移，不做行数截断。
   const templatesSrc = path.join(SOURCE, '.claude', 'docs', 'templates');
   let templateCount = 0;
   /**
@@ -486,7 +491,7 @@ function main() {
         );
         writeFile(
           path.join(ASSETS, 'templates', rel),
-          truncateLines(cleaned, RULES.templates.maxLines, `templates/${rel}`),
+          `${cleaned.replace(/\s+$/, '')}\n`,
         );
         templateCount += 1;
       } else {
@@ -497,6 +502,36 @@ function main() {
     }
   };
   copyTemplates(templatesSrc, '');
+
+  // --- 4b. docs -----------------------------------------------------------------
+  // 上游 .claude/docs/ 全量镜像到 assets/docs/（含 templates/ 与 hooks-reference/ 子目录），
+  // 修复正文中被清洗规则改写成 assets/docs/... 的引用断链。
+  // 所有文本文件（.md/.yaml/.yml）应用 docs.replacements 清洗，其余文件原样复制。
+  const docsSrc = path.join(SOURCE, '.claude', 'docs');
+  const docsReplacements = RULES.docs?.replacements ?? RULES.agents.personaReplacements;
+  let docCount = 0;
+  /**
+   * @param {string} srcDir
+   * @param {string} relBase
+   */
+  const copyDocs = (srcDir, relBase) => {
+    for (const entry of fs.readdirSync(srcDir, { withFileTypes: true })) {
+      const srcPath = path.join(srcDir, entry.name);
+      const rel = relBase ? `${relBase}/${entry.name}` : entry.name;
+      if (entry.isDirectory()) {
+        copyDocs(srcPath, rel);
+      } else if (/\.(md|ya?ml)$/.test(entry.name)) {
+        const cleaned = applyReplacements(fs.readFileSync(srcPath, 'utf8'), docsReplacements);
+        writeFile(path.join(ASSETS, 'docs', rel), `${cleaned.replace(/\s+$/, '')}\n`);
+        docCount += 1;
+      } else {
+        fs.mkdirSync(path.dirname(path.join(ASSETS, 'docs', rel)), { recursive: true });
+        fs.copyFileSync(srcPath, path.join(ASSETS, 'docs', rel));
+        docCount += 1;
+      }
+    }
+  };
+  copyDocs(docsSrc, '');
 
   // --- 5. UPSTREAM-LICENSE ------------------------------------------------------
   fs.copyFileSync(path.join(SOURCE, 'LICENSE'), path.join(ASSETS, 'UPSTREAM-LICENSE'));
@@ -518,6 +553,7 @@ function main() {
       skills: skillEntries.length,
       rules: ruleEntries.length,
       templates: templateCount,
+      docs: docCount,
     },
     agents: agentEntries,
     skills: skillEntries,
@@ -542,13 +578,16 @@ function main() {
     `| skills | ${skillEntries.length} |`,
     `| rules | ${ruleEntries.length} |`,
     `| templates | ${templateCount} |`,
+    `| docs | ${docCount} |`,
     '',
     '## 迁移策略说明',
     '',
     '- agents/skills：frontmatter 仅保留 keep 清单字段，其余（含未列入 remove 的未知字段）一律丢弃并记录如下。',
-    '- rules：剥离 frontmatter（`paths` 已并入 manifest 的 `globs`），正文压缩至 ≤40 行。',
+    '- skills：上游 frontmatter 的 `agent:` 字段从正文移除，但保留到 manifest 的 skill 条目 `agent` 字段。',
+    '- rules：剥离 frontmatter（`paths` 已并入 manifest 的 `globs`，globs 对齐上游 paths），正文全量迁移不截断。',
     '- templates：为满足 assets/ 清洗断言（无 `.claude/`、`AskUserQuestion`、`Claude Code`），',
-    '  模板并非逐字节复制，而是应用了与 agents 相同的替换规则，且超过 100 行的文件被截断。',
+    '  模板并非逐字节复制，而是应用了与 agents 相同的替换规则；全量迁移，不做行数截断。',
+    '- docs：上游 `.claude/docs/` 全量镜像到 `assets/docs/`（应用 docs 替换规则），修复正文引用断链。',
     '',
     '## 人工复核清单',
     '',
@@ -559,7 +598,7 @@ function main() {
   ].join('\n');
   writeFile(path.join(SCRIPT_DIR, 'migrate-report.md'), report);
 
-  console.log(`迁移完成：agents=${agentEntries.length} skills=${skillEntries.length} rules=${ruleEntries.length} templates=${templateCount}`);
+  console.log(`迁移完成：agents=${agentEntries.length} skills=${skillEntries.length} rules=${ruleEntries.length} templates=${templateCount} docs=${docCount}`);
   console.log(`复核项：${new Set(reviewItems).size} 条，详见 scripts/migrate-report.md`);
 }
 

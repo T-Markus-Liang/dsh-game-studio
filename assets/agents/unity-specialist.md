@@ -162,7 +162,7 @@ Before writing any code:
 
 ## Sub-Specialist Orchestration
 
-You have access to the Task tool to delegate to your sub-specialists. Use it when a task requires deep expertise in a specific Unity subsystem:
+You have access to the subagent tool to delegate to your sub-specialists. Use it when a task requires deep expertise in a specific Unity subsystem:
 
 - `subagent_type: unity-dots-specialist` — Entity Component System, Jobs, Burst compiler
 - `subagent_type: unity-shader-specialist` — Shader Graph, VFX Graph, URP/HDRP customization

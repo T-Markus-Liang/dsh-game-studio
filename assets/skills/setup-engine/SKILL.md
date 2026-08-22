@@ -33,7 +33,7 @@ If no engine is specified, run an interactive engine selection process:
 
 ### If the user wants to pick without a concept, ask in this order:
 
-**Question 1 — Prior experience** (ask this first, always, via `通过宿主 ask 机制向用户提问`):
+**Question 1 — Prior experience** (ask this first, always, via `the host's ask/question mechanism`):
 - Prompt: "Have you worked in any of these engines before?"
 - Options: `Godot` / `Unity` / `Unreal Engine 5` / `Multiple — I'll explain` / `None of them`
 - If they pick a specific engine → recommend that engine. Prior experience outweighs all other factors. Confirm with them and skip the matrix.
@@ -41,7 +41,7 @@ If no engine is specified, run an interactive engine selection process:
 
 **Questions 2-6 — Decision matrix inputs** (only if no prior engine experience):
 
-**Question 2 — Target platform** (ask this second, always, via `通过宿主 ask 机制向用户提问` — platform eliminates or heavily weights engines before any other factor):
+**Question 2 — Target platform** (ask this second, always, via `the host's ask/question mechanism` — platform eliminates or heavily weights engines before any other factor):
 - Prompt: "What platforms are you targeting for this game?"
 - Options: `PC (Steam / Epic)` / `Mobile (iOS / Android)` / `Console` / `Web / Browser` / `Multiple platforms`
 - Platform rules that feed directly into the recommendation:
@@ -98,11 +98,11 @@ Do NOT use a simple scoring matrix that eliminates engines. Instead, reason thro
 2. Give a primary recommendation with honest reasoning
 3. Name the best alternative and when to choose it instead
 4. Explicitly state: "This is a starting point, not a verdict — you can always migrate engines, and many developers switch between projects."
-5. Use `通过宿主 ask 机制向用户提问` to confirm: "Does this recommendation feel right, or would you like to explore a different engine?"
+5. Use `the host's ask/question mechanism` to confirm: "Does this recommendation feel right, or would you like to explore a different engine?"
    - Options: `[Primary engine] (Recommended)` / `[Alternative engine]` / `[Third engine]` / `Explore further` / `Type something`
 
 **If the user picks "Explore further":**
-Use `通过宿主 ask 机制向用户提问` with concept-specific deep-dive topics. Always generate these options from the user's actual concept — do not use generic options. Always include at minimum:
+Use `the host's ask/question mechanism` with concept-specific deep-dive topics. Always generate these options from the user's actual concept — do not use generic options. Always include at minimum:
 - The primary engine's specific limitations for this concept (e.g., "How far can Godot 3D actually go for [genre]?")
 - The alternative engine's specific tradeoffs for this concept
 - Language choice impact on this concept's technical challenges
@@ -229,7 +229,7 @@ Example filled section:
 ```
 
 ### Remaining Sections
-- **Performance Budgets**: Use `通过宿主 ask 机制向用户提问`:
+- **Performance Budgets**: Use `the host's ask/question mechanism`:
   - Prompt: "Should I set default performance budgets now, or leave them for later?"
   - Options: `[A] Set defaults now (60fps, 16.6ms frame budget, engine-appropriate draw call limit)` / `[B] Leave as [TO BE CONFIGURED] — I'll set these when I know my target hardware`
   - If [A]: populate with the suggested defaults. If [B]: leave as placeholder.

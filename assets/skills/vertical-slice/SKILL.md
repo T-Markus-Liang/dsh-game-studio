@@ -90,8 +90,8 @@ Define in bullet points:
 
 Ask the user to confirm scope before building.
 
-Once confirmed, write a session checkpoint to `.dsh/game-studio/state//active.md`
-(create `.dsh/game-studio/state//` if it does not exist). Include: concept name,
+Once confirmed, write a session checkpoint to `.dsh/game-studio/state/active.md`
+(create `.dsh/game-studio/state/` if it does not exist). Include: concept name,
 validation question, systems in scope, art quality level, and current phase ("Phase
 4 — Implement"). Update this file at the end of each build day with what was
 completed. This is the primary recovery mechanism if the session ends mid-slice —
